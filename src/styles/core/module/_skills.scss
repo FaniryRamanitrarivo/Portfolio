@@ -1,0 +1,119 @@
+.skills-section {
+
+    margin-top: rem(100);
+    padding-top: rem(75);
+    padding-bottom: rem(65);
+    background-color: $bg-color;
+
+    &>.l-container {
+        background-color: $bg-secondary-color;
+        padding-bottom: rem(45);
+        padding-top: rem(65);
+    }
+
+    & p {
+        margin-top: rem(60);
+        padding: 0 rem(15);
+    }
+
+    & .skill-section {
+        padding: 0 rem(15);
+    }
+
+    & .skill-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    & .skill-main {
+        width: 100%;
+    }
+
+    & .skill-content {
+        margin-bottom: rem(15);
+    }
+
+    & .skill-tech {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    & .tech-icon {
+        width: rem(80);
+    }
+
+    & .link {
+        display: block;
+        margin-top: rem(30);
+        padding: 0 rem(15);
+        text-decoration: underline;
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+    .skills-section {
+
+        padding-top: rem(115);
+        padding-bottom: rem(115);
+        margin-bottom: rem(110);
+
+        & p {
+            margin-top: rem(60);
+            padding: 0 rem(45);
+        }
+
+        & .skill-container {
+            padding: 0 rem(35);
+            text-align: center;
+        }
+
+        & .skill-section {
+            padding: 0 rem(45);
+            display: flex;
+        }
+
+        & .section-form-container{
+            margin-top: rem(-40);
+        }
+
+        & .skill-desktop>.section-form-container {
+            margin-top: rem(40);
+        }
+
+        & .section-rectangle {
+            height: rem(120);
+        }
+
+        & .skill-tech {
+            margin: 0 rem(5);
+        }
+
+        & .link {
+
+            padding: 0 rem(75);
+
+            &:hover {
+                color: $secondary-color;
+            }
+            
+        }
+
+    }
+
+}
+
+@media only screen and (min-width: 1280px) {
+
+    .skills-section {
+
+        & .section-form-container{
+            margin-top: rem(-10);
+        }
+
+    }
+
+}

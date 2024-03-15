@@ -1,0 +1,203 @@
+.contact-section {
+
+    background-color: $bg-color;
+    margin-bottom: rem(115);
+    padding-bottom: rem(65);
+
+    &>.l-container {
+        padding-top: rem(65);
+        padding-bottom: rem(65);
+        margin-top: rem(65);
+        background-color: $bg-secondary-color;
+        overflow: hidden;
+    }
+
+    & .form-container {
+        padding: 0 rem(15);
+    }
+
+    & h3 {
+        text-align: center;
+    }
+
+    & .form {
+        margin-left: auto;
+        margin-right: auto;
+        width: rem(320);
+    }
+
+    & .form-group {
+        width: 100%;
+        margin: rem(35) 0;
+        position: relative;
+    }
+
+    & label {
+        position: absolute;
+        top: rem(15);
+        left: rem(15);
+        color: rgba($secondary-text-color,.9);
+    }
+
+    & input {
+        color: $primary-text-color;
+        box-sizing: border-box;
+        display: block;
+        padding-left: rem(15);
+        background-color: $bg-color;
+        border: 1px solid rgba($secondary-text-color,.4);
+        outline: none;
+        border-radius: rem(5);
+        width: calc(100% - 30px);
+        height: rem(50);
+
+        &:focus + label,
+        &:valid + label {
+            color: $primary-color;
+            transform: translate(10px,-28px);
+            background-color: $bg-color;
+            padding: rem(5) rem(10);
+            transition: .3s;
+            border-left: 1px solid $primary-color;
+            border-right: 1px solid $primary-color;
+        }
+
+        &:focus,
+        &:valid {
+            border: 1px solid $primary-color!important;
+        }
+
+    }
+
+    & textarea {
+        @extend input;
+        height: rem(150);
+        padding-top: rem(15);
+    }
+
+    & .btn-contact {
+        
+        width: calc(100% - 30px);
+        height: rem(50);
+        color: $primary-color;
+        font-weight: 600;
+        font-size: rem(20);
+        background-color: $bg-color;
+        border: 1px solid $primary-color;
+        border-radius: rem(50);
+        margin-top: rem(25);
+        margin-bottom: rem(35);
+        cursor: pointer;
+        transition: .3s;
+
+        &:hover {
+            background-color: $primary-color;
+            color: $bg-color;
+        }
+
+    }
+
+    & .contact-img-container {
+
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+
+    }
+
+    & .contact-img {
+
+        width: calc(100% - 30px);
+        height: rem(300);
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: rem(5);    
+        overflow: hidden;
+        max-width: rem(550);
+    }
+
+    & .contact-description {
+        overflow: hidden;
+        color: $primary-text-color;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: calc(100% - 70px);
+        height: rem(260);
+        max-width: rem(450);
+        text-align: justify;
+        line-height: 1.5;
+        display: flex;
+        align-items: center;
+        backdrop-filter: blur(rem(2));
+        box-sizing: border-box;
+        background-color: rgba($primary-text-color,.25);
+        border-radius: rem(5);
+    }
+
+    & .contact-description-content {
+        width: calc(100% - 40px);
+        margin-left: rem(20);
+        margin-right: rem(20);
+        line-height: 1.5;
+        text-align: center;
+        flex: none;
+        font-size: rem(25);
+        font-weight: 600;
+
+    }
+
+    & .pagination {
+        display: flex;
+        width: rem(95);
+        justify-content: space-between;
+        margin-bottom: rem(45);
+        position: absolute;
+        bottom: rem(10);
+        left: 25%;
+        z-index: 3;
+    }
+
+    & .pagination>a{
+        width: rem(15);
+        height: rem(15);
+        border-radius: 50px;
+        background-color: rgba($secondary-text-color, .55);
+    }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+    .contact-section {
+
+        padding-top: rem(65);
+
+        &>.l-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 rem(15);
+        }
+
+        & .form {
+            width: rem(360);
+        }
+
+        & .contact-img-container {
+            margin-top: rem(25);
+            height: rem(450);
+        }
+
+        & .contact-img {
+            height: 100%;
+        }
+
+        & .contact-description {
+            height: rem(410);
+        }
+
+    }
+
+}

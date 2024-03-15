@@ -1,0 +1,60 @@
+@import "./module/header";
+@import "./module/hometitle";
+@import "./module/about";
+@import "./module/skills";
+@import "../variables/color";
+@import "./module/contact";
+@import "./module/footer";
+
+.main-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(320);
+    height: rem(100);
+    margin: 0 auto;
+    background-color: $primary-color;
+    box-sizing: border-box;
+    clip-path: polygon(
+        0% 5%, 
+        85% 5%, 
+        100% 50%, 
+        85% 95%, 
+        0% 95%, 
+        15% 50%
+    );
+
+    & .main-title-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        margin: 0;
+        width: calc(100% - 33px);
+        height: calc(100% - 4px);
+        background-color: $bg-color;
+        clip-path: polygon(
+            0% 5%, 
+            85% 5%, 
+            100% 50%, 
+            85% 95%, 
+            0% 95%, 
+            15% 50%
+        );
+        transform: translateX(1px);
+        color: $bg-color;
+        -webkit-text-stroke: 2px $primary-color;
+        text-shadow: 0 3px 10px $primary-color;
+        padding-left: rem(25);
+        box-sizing: content-box;
+    }
+
+}
+
+@media only screen and (min-width: 992px) {
+
+    .main-title-container {
+        width: rem(450);
+    }
+
+}

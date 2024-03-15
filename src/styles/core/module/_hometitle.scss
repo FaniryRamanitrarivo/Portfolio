@@ -1,0 +1,355 @@
+@import '../../core/state';
+
+.btn {
+
+    position: relative;
+    color: $primary-text-color;
+    text-transform: capitalize;
+    width: rem(250);
+    height: rem(50);
+    border-radius: rem(50);
+    outline: none;
+    font-size: rem(20);
+    background-color: inherit;
+    border: rem(1) solid $primary-text-color;
+
+    &>span {
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: auto;
+        right: 3px;
+        transform: translateY(-50%);
+        display: block;
+        width: 40px;
+        height: 40px;
+        background-color: $primary-color;
+        border-radius: 50%;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: rem(5);
+        animation: slideBtn 1.5s ;
+    }
+
+}
+
+.home-title-container {
+
+    background-color: $bg-color;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+
+    & .image-bg-container {
+        
+        max-width: rem(500);
+        width: 100%;
+        height: rem(400);
+        position: absolute;
+        top:0;
+        left: auto;
+        right: 0;
+        z-index: 1;
+    }
+
+    & .image-bg {
+        background-color: $primary-color;
+        width: 100%;
+        max-width: rem(500);
+        height: rem(400);
+        clip-path: polygon(100% 0,100% 100%,0 100%);
+        transform: rotateX(180deg);
+        margin-left: auto;
+    }
+
+}
+
+.home-title {
+
+    & .image-section {
+        position: relative;
+        z-index: 3;
+        max-width: rem(350);
+        margin-left: auto;
+        padding-top: rem(45);
+    }
+
+    & .image-content {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 320px;
+        height: 295px;
+        background-color: $bg-color;
+        clip-path: polygon(
+            25% 5%,
+            75% 5%,
+            100% 50%,
+            75% 95%,
+            25% 95%, 
+            0% 50%
+        );
+        z-index: 2;
+    }
+
+    & .image-content-border {
+        @extend .image-content;
+        background-color: $bg-color;
+        width: 290px;
+        height: 265px;
+        &>img {
+            height: auto;
+            transform: translateY(55px);
+        }
+    }
+
+}
+
+.title-section {
+
+    max-width: rem(600);
+
+    margin-top: rem(65);
+    margin-left: auto;
+    margin-right: auto;
+
+    & h1 {
+        line-height: 1.3;
+    }
+
+    & h2 {
+        margin-bottom: rem(40);
+    }
+
+    & p {
+        padding: 0;
+        margin: rem(40) 0;
+        font-size: rem(20);
+        line-height: 1.5;
+    }
+
+    & .btn {
+        margin-bottom: rem(80);
+    }
+
+}
+
+.section-form-container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+    & .section-round {
+        width: 20px;
+        height: 20px;
+        background-color: $primary-color;
+        border-radius: 50%;
+    }
+
+    & .section-rectangle {
+        width: 5px;
+        background: linear-gradient(180deg,
+            rgba($primary-color, 1), 
+            rgba($primary-color, 0.8) 50%, 
+            rgba($primary-color, 0.5),
+            rgba($primary-color, 0.25),
+            rgba($primary-color, 0.05),
+            rgba($primary-color, 0),
+        );
+        height: 225px;
+    }
+
+}
+
+.home-round-bg {
+    background-color: $bg-color;
+    width: 100%;
+    height: 80px;
+    border-radius: 0 0 100% 100%;
+    margin-bottom: rem(65);
+}
+
+@media only screen and (min-width: 768px) {
+
+    .menu-hamburger {
+        display: none;
+    }
+
+    .home-title-container {
+
+        & .image-bg-container {
+            height: rem(600);
+        }
+
+        & .image-bg {
+            height: rem(600);
+        }
+
+    }
+
+    .home-title {
+
+        & .image-section {
+            padding-top: rem(110);
+            transform: translateX(rem(-25));
+            z-index: 3;
+        }
+
+        & .image-content {
+            margin-left: auto;
+            margin-right: auto;
+            width: 350px;
+            height: 325px;
+        }
+    
+        & .image-content-border {
+            @extend .image-content;
+            background-color: $bg-color;
+            width: 320px;
+            height: 295px;
+            &>img {
+                height: auto;
+                transform: translateY(55px);
+            }
+        }
+
+    }
+
+    .title-section {
+        display: flex;
+        align-items: start;
+    }
+
+    .section-form-container {
+        display: flex;
+        margin-left: rem(20);
+        margin-right: rem(40);
+    }
+
+    .home-round-bg {
+        margin-bottom: rem(115);
+    }
+    
+}
+
+@media only screen and (min-width: 992px) {
+
+    .home-title-container {
+
+        & .image-bg-container {
+            width: rem(500);
+            display: flex;
+        }
+
+        & .image-bg {
+            width: rem(500);
+            flex:none;
+        }
+
+    }
+
+    .home-title {
+
+        display: flex;
+
+        & .title-section {
+            margin-top: rem(110);
+            order: 1;
+            margin-left: rem(15);
+        }
+    
+        & .image-section {
+            order: 2;
+            width: rem(400);
+            transform: translateX(rem(-25));
+            flex: none;
+        }
+
+    }
+
+}
+
+@media only screen and (min-width: 1280px) {
+
+    .home-title-container {
+
+        & .image-bg-container {
+            width: calc(100% * 500 / 1280);
+            display: flex;
+        }
+
+        & .image-bg-square {
+            width: rem(500);
+            height: 100%;
+            background-color: $primary-color;
+        }
+
+    }
+
+    .home-title {
+
+        & .image-section {
+          margin-left: 100px;
+          transform: translateX(rem(25));
+          z-index: 5;
+        }
+
+    }
+
+    .title-section {
+        margin-left: rem(20);
+    }
+
+}
+
+@media only screen and (min-width: 1500px) {
+
+    .home-title-container {
+
+        & .image-bg-container {
+            max-width: none;
+            width: calc(440px + (100% - 1280px)/2);
+            display: flex;
+        }
+
+        & .image-bg-square {
+            width: rem(500);
+            height: 100%;
+            background-color: $primary-color;
+        }
+
+    }
+
+    .home-title {
+
+        & .image-section {
+          margin-left: 100px;
+          transform: translateX(rem(-5));
+          z-index: 5;
+        }
+
+    }
+
+    .title-section {
+        margin-left: rem(20);
+    }
+
+}
+
+@keyframes slideBtn {
+    from {
+        right: 200px;
+    }
+    to {
+        left: auto;
+        right: 3px;
+    }
+}

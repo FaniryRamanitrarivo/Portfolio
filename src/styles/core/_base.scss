@@ -1,0 +1,73 @@
+@import '../variables/color';
+
+body {
+    color: $secondary-text-color;
+    font-size: 16px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    background-color: $bg-secondary-color;
+}
+
+p {
+    line-height: 1.8;
+    font-size: rem(20);
+    padding: rem(15) rem(20);
+    text-align: justify;
+}
+
+a {
+    color: $secondary-text-color;
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+h1 {
+    color: $primary-color;
+    font-weight: bold;
+    font-size: rem(30);
+}
+
+h2 {
+    text-transform: capitalize;
+    color: $primary-text-color;
+    font-weight: 600;
+    font-size: rem(25);
+}
+
+h3 {
+    font-size: rem(23);
+    text-transform: capitalize;
+    font-weight: 600;
+    margin: rem(40) 0 rem(20) 0;
+}
+
+h4 {
+    text-transform: capitalize;
+    font-size: rem(20);
+    font-weight: 600;
+    padding: rem(10) 0;
+}
+
+@media only screen and (min-width: 992px) {
+
+    h1 {
+        font-size: rem(45);
+    }
+    
+    h2 {
+        font-size: rem(35);
+    }
+
+    h3 {
+        font-size: rem(30);
+    }
+
+    h4 {
+        font-size: rem(25);
+    }
+
+}

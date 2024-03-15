@@ -1,0 +1,38 @@
+.footer-top {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: $primary-color;
+    color: $bg-color;
+    padding: rem(15) rem(25);
+    line-height: 1.5;
+    transform: translateY(rem(-45));
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba($secondary-color, .5);
+
+    & .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: rem(10);
+        border: 2px solid $bg-color;
+        color: $primary-color;        
+        width: rem(200);
+        height: rem(50);
+        background-color: $bg-secondary-color;
+        transition: .3s;
+
+        &:hover {
+            background-color: $primary-color;
+            color: $bg-secondary-color;
+        }
+
+    }
+
+    & .copyright {
+        text-align: center;
+    }
+
+}

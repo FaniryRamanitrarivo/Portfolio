@@ -1,0 +1,17 @@
+@import '../variables/color';
+
+.is-link-active {
+    color: $primary-color!important;
+    &::after {
+        opacity: 1!important;
+    }
+}
+
+.is-pagination-active {
+    width: rem(35)!important;
+    background-color: $primary-text-color!important;
+}
+
+.is-menu-active {
+    display: block!important;
+}

@@ -1,0 +1,54 @@
+--menu-active:
+<svg xmlns="http://www.w3.org/2000/svg" width="63" height="27" viewBox="0 0 63 27">
+  <text id="Accueil" transform="translate(0 22)" fill="#e8e1e1" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">Accueil</tspan></text>
+</svg>
+
+
+--bg:
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="679.675" viewBox="0 0 1280 679.675">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.988" y1="0.021" x2="0" y2="0.978" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#42e8d2"/>
+      <stop offset="0.154" stop-color="#60cadf"/>
+      <stop offset="0.282" stop-color="#68a1dc"/>
+      <stop offset="0.442" stop-color="#6f78d8"/>
+      <stop offset="0.597" stop-color="#7e54dc"/>
+      <stop offset="0.827" stop-color="#bb4bc3"/>
+      <stop offset="1" stop-color="#e644b1"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_1" data-name="Tracé 1" d="M0,0H1280V220.125s-16.45,30.184-86.866,67.044c-9.7,5.078-36.78,17.473-61.781,28.6-34.746,15.534-72.526,27.437-82.639,30.166-21.508,7.134-63.365,17.534-131.131,34.255-51.925,12.321-156.765,31.451-240.288,52.917C539,468.655,412.4,512.386,412.4,512.386S310.546,544.038,207.446,585.86,0,679.675,0,679.675Z" fill="url(#linear-gradient)"/>
+</svg>
+
+
+--bg-component:
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="679.675" viewBox="0 0 1280 679.675">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.988" y1="0.021" x2="0" y2="0.978" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#42e8d2"/>
+      <stop offset="0.154" stop-color="#60cadf"/>
+      <stop offset="0.282" stop-color="#68a1dc"/>
+      <stop offset="0.442" stop-color="#6f78d8"/>
+      <stop offset="0.597" stop-color="#7e54dc"/>
+      <stop offset="0.827" stop-color="#bb4bc3"/>
+      <stop offset="1" stop-color="#e644b1"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_1" data-name="Tracé 1" d="M0,0H1280V220.125s-16.45,30.184-86.866,67.044c-9.7,5.078-36.78,17.473-61.781,28.6-34.746,15.534-72.526,27.437-82.639,30.166-21.508,7.134-63.365,17.534-131.131,34.255-51.925,12.321-156.765,31.451-240.288,52.917C539,468.655,412.4,512.386,412.4,512.386S310.546,544.038,207.446,585.86,0,679.675,0,679.675Z" fill="url(#linear-gradient)"/>
+</svg>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="679.675" viewBox="0 0 1280 679.675">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.988" y1="0.021" x2="0" y2="0.978" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#42e8d2"/>
+      <stop offset="0.154" stop-color="#60cadf"/>
+      <stop offset="0.282" stop-color="#68a1dc"/>
+      <stop offset="0.442" stop-color="#6f78d8"/>
+      <stop offset="0.597" stop-color="#7e54dc"/>
+      <stop offset="0.827" stop-color="#bb4bc3"/>
+      <stop offset="1" stop-color="#e644b1"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_1" data-name="Tracé 1" d="M0,0H1280V220.125s-16.45,30.184-86.866,67.044c-9.7,5.078-36.78,17.473-61.781,28.6-34.746,15.534-72.526,27.437-82.639,30.166-21.508,7.134-63.365,17.534-131.131,34.255-51.925,12.321-156.765,31.451-240.288,52.917C539,468.655,412.4,512.386,412.4,512.386S310.546,544.038,207.446,585.86,0,679.675,0,679.675Z" fill="url(#linear-gradient)"/>
+</svg>
