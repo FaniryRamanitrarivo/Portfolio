@@ -44,5 +44,32 @@ It showcases projects with detailed information and includes a **back-office API
 ### Clone the repository
 
 ```bash
-git clone <your-repo-url>
-cd portfolio```
+git clone <the-repo-url>
+cd portfolio
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Create .env file
+
+```bash
+DATABASE_URL="sqlite:./dev.db" # or your PostgreSQL/MySQL connection
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
+### Generate Prisma client and run migrations
+
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### Run the development server
+
+```bash
+npm run dev
+```
