@@ -54,7 +54,7 @@ cd portfolio
 npm install
 ```
 
-### Create .env file
+### Create `.env` file
 
 ```bash
 DATABASE_URL="sqlite:./dev.db" # or your PostgreSQL/MySQL connection
