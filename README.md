@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 👨‍💻 Developer Portfolio & Back Office
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-13.6-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-teal)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-First, run the development server:
+This is a **modern portfolio website** for a freelance/fullstack developer.  
+It showcases projects with detailed information and includes a **back-office API** for managing projects.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Live Preview:** *(replace with your deployed URL)*  
+[https://your-portfolio.vercel.app](https://your-portfolio.vercel.app)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🧰 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
+- **Framework:** Next.js 13 (App Router)
+- **UI:** React, Tailwind CSS, SCSS
+- **Design:** Clean, minimal, responsive (mobile-first)
+- **Features:** Server Components for performance, dynamic project listing
 
-## Learn More
+### Backend / API
+- **API:** Next.js API Routes (App Router)
+- **Database:** SQLite / PostgreSQL / MySQL (via Prisma ORM)
+- **ORM:** Prisma 7
+- **Validation:** Zod
+- **Error handling:** Centralized via `safeHandler`
 
-To learn more about Next.js, take a look at the following resources:
+**Endpoints:**
+| Method | Endpoint | Description |
+|--------|----------|------------|
+| GET    | `/api/projects` | Fetch all projects (pagination & filters optional) |
+| POST   | `/api/projects` | Create a new project |
+| GET    | `/api/projects/[id]` | Fetch project by ID |
+| PUT    | `/api/projects/[id]` | Update project by ID |
+| DELETE | `/api/projects/[id]` | Delete project by ID |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
