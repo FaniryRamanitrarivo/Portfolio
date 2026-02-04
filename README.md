@@ -39,5 +39,10 @@ It showcases projects with detailed information and includes a **back-office API
 
 ---
 
-## 🏗️ Project Structure
+# 🚀 Developer Portfolio & Back Office
 
+### Clone the repository
+
+```bash
+git clone <your-repo-url>
+cd portfolio```
