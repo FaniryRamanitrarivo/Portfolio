@@ -17,4 +17,5 @@ export type Project = {
   technologies: string[];
   createdAt: Date;
   updatedAt: Date;
+  popular?:boolean
 };

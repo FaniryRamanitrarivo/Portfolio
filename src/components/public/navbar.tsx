@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Logo from "./logo";
+import Logo from "../ui/logo";
 import { CustomLink, NavigationLink } from "../ui/link";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoMenu } from "react-icons/io5";

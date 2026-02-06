@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { projectSchema } from "./schema";
 import { safeHandler } from "@/src/lib/back/handler";
 import { AppError } from "@/src/lib/back/errors";
-import { projectQuerySchema } from "@/src/lib/back/projects/query-schema";
+import { projectQuerySchema } from "@/src/lib/back/validation/query.schema";
 import { projectService } from "@/src/lib/back/projects/service";
 
 

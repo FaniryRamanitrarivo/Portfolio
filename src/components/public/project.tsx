@@ -5,7 +5,7 @@ import ProjectView from "./project/project-view";
 
 export default async function Project() {
 
-    const projects: Project[] = await api.projects.latest(6);
+    const projects = await api.projects.latest(6);
 
     return (
         <section id="projects" className="py-16 sm:py-24 bg-neutral-50">
