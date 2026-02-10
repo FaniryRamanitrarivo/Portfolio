@@ -3,7 +3,6 @@ import Link from "next/link";
 import { MdAdd } from "react-icons/md";
 import { Table } from "../ui/table";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Project } from "@prisma/client";
 import { api } from "@/src/lib/front/api/api";
 
 export default async function AdminProject() {
@@ -32,24 +31,26 @@ export default async function AdminProject() {
                 <div className="overflow-x-auto">
                     <Table.Container>
                         <Table.Header>
-                            <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                project
-                            </Table.Title>
-                            <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                client
-                            </Table.Title>
-                            <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                role
-                            </Table.Title>
-                            <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                duration
-                            </Table.Title>
-                            <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                category
-                            </Table.Title>
-                            <Table.Title className="text-center text-xs font-semibold text-neutral-700 uppercase tracking-wider">
-                                action
-                            </Table.Title>
+                            <Table.Row>
+                                <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    project
+                                </Table.Title>
+                                <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    client
+                                </Table.Title>
+                                <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    role
+                                </Table.Title>
+                                <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    duration
+                                </Table.Title>
+                                <Table.Title className="text-left text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    category
+                                </Table.Title>
+                                <Table.Title className="text-center text-xs font-semibold text-neutral-700 uppercase tracking-wider">
+                                    action
+                                </Table.Title>
+                            </Table.Row>
                         </Table.Header>
                         <Table.Body>
                             {projects.map(project => (

@@ -1,41 +1,29 @@
-import { InputHTMLAttributes, ReactEventHandler, ReactNode, useState } from "react";
 import { Input } from "./input";
 import { IoClose } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
-import { UseFieldArrayReturn, UseFormRegister } from "react-hook-form";
+import { FieldArrayPath, FieldErrors, FieldValues, UseFieldArrayReturn, UseFormRegister } from "react-hook-form";
 
 
-type Props = {
+interface Props<T extends FieldValues> {
     title: string;
-    name: string;
+    name: string; // Plus précis que ArrayPath
     placeholder?: string;
-    fieldArray: UseFieldArrayReturn<any, any>;
-    register: UseFormRegister<any>;
-};
+    fieldArray: UseFieldArrayReturn<T, FieldArrayPath<T>, "id">;
+    register: UseFormRegister<T>;
+    // On utilise FieldErrors<T> pour extraire exactement la structure liée au champ 'name'
+    errors?: FieldErrors<T>;
+}
 
-export default function MultipleInput({
+export default function MultipleInput<T extends FieldValues>({
     title,
     name,
     placeholder,
     fieldArray,
     register,
-}: Props) {
+    errors = {}
+}: Props<T>) {
 
     const { fields, append, remove } = fieldArray;
-
-    // const handleChange = (index: number, value: string) => {
-    //     const newValues = [...values];
-    //     newValues[index] = value;
-    //     setValues(newValues);
-    // }
-
-    // const handleAdd = () => {
-    //     setValues([...values, ""]);
-    // };
-
-    // const handleRemove = (index: number) => {
-    //     setValues(values.filter((_, i) => i !== index));
-    // };
 
     return (
         <div className="bg-white rounded-xl shadow-sm p-6">
@@ -65,6 +53,23 @@ export default function MultipleInput({
                     <span>Add Result</span>
                 </button>
             </div>
+
+            {errors[name]?.message && (
+                <p className="text-red-500 text-xs mt-1 ml-1 font-medium">
+                    {/* On s'assure que le message est une string */}
+                    {String(errors[name]?.message)}
+                </p>
+            )}
+
+            {Array.isArray(errors[name]) &&
+                errors[name].map((err, i) =>
+                    err.message ? (
+                        <p key={i} className="text-red-500 text-sm">
+                            Challenge #{i + 1}: {err.message}
+                        </p>
+                    ) : null
+                )}
+
         </div>
     )
 }

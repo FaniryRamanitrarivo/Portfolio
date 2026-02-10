@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const arrayItem = z.object({
-  value: z.string().min(1),
+const itemSchema = z.object({
+  value: z.string().min(1, "Ce champ ne peut pas être vide"),
 });
 
 export const projectFormSchema = z.object({
@@ -16,11 +16,11 @@ export const projectFormSchema = z.object({
   github: z.string().url().optional(),
   link: z.string().url().optional(),
 
-  responsibilities: z.array(arrayItem),
-  keyResults: z.array(arrayItem),
-  challenges: z.array(arrayItem),
-  solutions: z.array(arrayItem),
-  technologies: z.array(arrayItem),
+  responsibilities: z.array(itemSchema).min(1),
+  keyResults: z.array(itemSchema).min(1),
+  challenges: z.array(itemSchema).min(1),
+  solutions: z.array(itemSchema).min(1),
+  technologies: z.array(itemSchema).min(1),
 
   popular: z.boolean(),
 });
