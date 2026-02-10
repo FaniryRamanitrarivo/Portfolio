@@ -25,7 +25,7 @@ export async function serverFetch<T>(
   if (!res.ok) {
     throw new Error(`API error ${res.status} ${res.statusText}`);
   }
-
+  
   const json: ApiResponse<T> = await res.json();
   return json.data;
 }

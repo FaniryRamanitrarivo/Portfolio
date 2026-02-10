@@ -1,7 +1,7 @@
 import { Input } from "./input";
 import { IoClose } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
-import { FieldArrayPath, FieldErrors, FieldValues, UseFieldArrayReturn, UseFormRegister } from "react-hook-form";
+import { FieldArrayPath, FieldErrors, FieldValues, Path, UseFieldArrayReturn, UseFormRegister } from "react-hook-form";
 
 
 interface Props<T extends FieldValues> {
@@ -35,7 +35,7 @@ export default function MultipleInput<T extends FieldValues>({
                             <Input
                                 placeholder={placeholder}
                                 // onChange={(e) => handleChange(index, e.target.value)}
-                                {...register(`${name}.${index}`)}
+                                {...register(`${name}.${index}.value` as Path<T>)}
                             />
                         </div>
                         <button type="button"
@@ -56,16 +56,15 @@ export default function MultipleInput<T extends FieldValues>({
 
             {errors[name]?.message && (
                 <p className="text-red-500 text-xs mt-1 ml-1 font-medium">
-                    {/* On s'assure que le message est une string */}
                     {String(errors[name]?.message)}
                 </p>
             )}
 
             {Array.isArray(errors[name]) &&
-                errors[name].map((err, i) =>
-                    err.message ? (
-                        <p key={i} className="text-red-500 text-sm">
-                            Challenge #{i + 1}: {err.message}
+                (errors[name] as any[]).map((err, i) =>
+                    err?.value?.message ? (
+                        <p key={i} className="text-red-500 text-sm mt-1">
+                            {title} #{i + 1}: {err.value.message}
                         </p>
                     ) : null
                 )}

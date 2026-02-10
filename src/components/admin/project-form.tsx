@@ -166,8 +166,6 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
                 </div>
             </div>
 
-            {JSON.stringify(errors)}
-
             <div className="flex items-center justify-end space-x-3 pt-4">
 
                 <button
