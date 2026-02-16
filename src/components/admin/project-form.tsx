@@ -1,12 +1,12 @@
 "use client";
 
 import { useFieldArray, useForm } from "react-hook-form";
-import { projectFormSchema, ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MultipleInput from "../ui/mutliple-input";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { projectFormSchema, ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
 // import { useRouter } from "next/router";
 
 type Props = {
@@ -59,11 +59,21 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
     });
 
     useEffect(() => {
-        const arrays = [responsibilitiesFieldArray, keyResultsFieldArray, challengesFieldArray, solutionsFieldArray, technologiesFieldArray];
+        const arrays = [
+            responsibilitiesFieldArray,
+            keyResultsFieldArray,
+            challengesFieldArray,
+            solutionsFieldArray,
+            technologiesFieldArray
+        ];
+
         arrays.forEach(field => {
-            if (field.fields.length === 0) field.append({ value: "" });
+            if (field.fields.length === 0) {
+                field.append({ value: "" });
+            }
         });
     }, []);
+
 
     return (
         <form

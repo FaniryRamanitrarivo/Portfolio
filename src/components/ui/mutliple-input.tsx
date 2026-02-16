@@ -4,24 +4,29 @@ import { IoMdAdd } from "react-icons/io";
 import { FieldArrayPath, FieldErrors, FieldValues, Path, UseFieldArrayReturn, UseFormRegister } from "react-hook-form";
 
 
-interface Props<T extends FieldValues> {
+interface Props<
+    T extends FieldValues,
+    N extends FieldArrayPath<T>
+> {
     title: string;
-    name: string; // Plus précis que ArrayPath
+    name: N;
     placeholder?: string;
-    fieldArray: UseFieldArrayReturn<T, FieldArrayPath<T>, "id">;
+    fieldArray: UseFieldArrayReturn<T, N, "id">;
     register: UseFormRegister<T>;
-    // On utilise FieldErrors<T> pour extraire exactement la structure liée au champ 'name'
     errors?: FieldErrors<T>;
 }
 
-export default function MultipleInput<T extends FieldValues>({
+export default function MultipleInput<
+    T extends FieldValues,
+    N extends FieldArrayPath<T>
+>({
     title,
     name,
     placeholder,
     fieldArray,
     register,
     errors = {}
-}: Props<T>) {
+}: Props<T, N>) {
 
     const { fields, append, remove } = fieldArray;
 
@@ -47,7 +52,7 @@ export default function MultipleInput<T extends FieldValues>({
                 ))}
                 <button
                     type="button"
-                    onClick={() => append("")}
+                    onClick={() => append({ value: "" } as T[N][number])}
                     className="px-4 py-2 flex items-center text-sm text-accent-600 hover:bg-accent-50 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
                     <IoMdAdd className="inline-block mr-1" />
                     <span>Add Result</span>
