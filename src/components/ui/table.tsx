@@ -1,57 +1,49 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
-type TableProps = {
+// Using a generic type that extends standard HTML attributes 
+// This allows the components to accept all native table props (id, style, aria-tags, etc.)
+type TableElementProps<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & {
     children: ReactNode;
     className?: string;
-}
+};
 
-function TableContainer({ children, className = '' }: TableProps) {
-    return (
-        <table className={`w-full ${className}`}>
+const TableContainer = ({ children, className = '', ...props }: TableElementProps<'table'>) => (
+    <div className="w-full overflow-x-auto rounded-lg border border-neutral-200">
+        <table className={`w-full text-left text-sm text-neutral-600 ${className}`} {...props}>
             {children}
         </table>
-    )
-}
+    </div>
+);
 
-function TableHeader({ children, className = '' }: TableProps) {
-    return (
-        <thead className={`bg-neutral-50 border-b border-neutral-200 ${className}`}>
-            {children}
-        </thead>
-    )
-}
+const TableHeader = ({ children, className = '', ...props }: TableElementProps<'thead'>) => (
+    <thead className={`bg-neutral-50 text-xs font-semibold uppercase text-neutral-700 border-b border-neutral-200 ${className}`} {...props}>
+        {children}
+    </thead>
+);
 
-function TableTitle({ children, className = '' }: TableProps) {
-    return (
-        <th className={`px-6 py-4 ${className}`}>
-            {children}
-        </th>
-    )
-}
+const TableRow = ({ children, className = '', ...props }: TableElementProps<'tr'>) => (
+    <tr className={`border-b border-neutral-200 last:border-0 hover:bg-neutral-50/50 transition-colors ${className}`} {...props}>
+        {children}
+    </tr>
+);
 
-function TableRow({ children, className = '' }: TableProps) {
-    return (
-        <tr className={`hover:bg-neutral-50 transition-colors ${className}`}>
-            {children}
-        </tr>
-    )
-}
+const TableTitle = ({ children, className = '', ...props }: TableElementProps<'th'>) => (
+    <th className={`px-6 py-4 font-medium whitespace-nowrap ${className}`} {...props}>
+        {children}
+    </th>
+);
 
-function TableBody({ children, className = '' }: TableProps) {
-    return (
-        <tbody className={`divide-y divide-neutral-200 ${className}`}>
-            {children}
-        </tbody>
-    )
-}
+const TableBody = ({ children, className = '', ...props }: TableElementProps<'tbody'>) => (
+    <tbody className={`divide-y divide-neutral-200 bg-white ${className}`} {...props}>
+        {children}
+    </tbody>
+);
 
-function TableCol({ children, className = '' }: TableProps) {
-    return (
-        <td className={`px-6 py-4 ${className}`}>
-            {children}
-        </td>
-    )
-}
+const TableCol = ({ children, className = '', ...props }: TableElementProps<'td'>) => (
+    <td className={`px-6 py-4 whitespace-nowrap ${className}`} {...props}>
+        {children}
+    </td>
+);
 
 export const Table = {
     Container: TableContainer,

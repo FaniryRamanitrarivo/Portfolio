@@ -42,8 +42,7 @@ export const api = {
         body: JSON.stringify(normalized),
       });
     },
-
-    remove: (id: number) =>
+    delete: (id: number) =>
       apiFetch<void>(`/projects/${id}`, {
         method: "DELETE",
       }),

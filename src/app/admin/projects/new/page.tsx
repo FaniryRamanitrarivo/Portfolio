@@ -31,7 +31,6 @@ export default function NewProjectPage() {
                     </Button>
                 </div>
                 <ProjectForm onSubmit={handleCreate} />
-
             </div>
         </>
     );
