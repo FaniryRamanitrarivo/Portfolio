@@ -3,7 +3,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MultipleInput from "../ui/mutliple-input";
-import { Input } from "../ui/input";
+import { Input, TextArea } from "../ui/input";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { projectFormSchema, ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
@@ -27,6 +27,8 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
             challenges: [],
             solutions: [],
             technologies: [],
+            github: undefined,
+            link: undefined,
             ...defaultValues,
         },
     });
@@ -89,7 +91,7 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
 
                     <div className="grid sm:grid-cols-2 gap-4">
 
-                        <Input required label="Client *" className={errors.client ? "border-red-300" : ""} placeholder="Company Name" {...register("client")} />
+                        <Input label="Client" className={errors.client ? "border-red-300" : ""} placeholder="Company Name" {...register("client")} />
                         {errors.client && <p className="text-red-500 text-sm">{errors.client.message}</p>}
 
                         <Input required label="Your Role *" className={errors.role ? "border-red-300" : ""} placeholder="Lead Developer" {...register("role")} />
@@ -106,10 +108,10 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
 
                     </div>
 
-                    <Input required label="Overview *" className={errors.overview ? "border-red-300" : ""} placeholder="Brief one-line description for the project card" {...register("overview")} />
+                    <TextArea required label="Overview *" className={errors.overview ? "border-red-300" : ""} placeholder="Brief one-line description for the project card" {...register("overview")} ></TextArea>
                     {errors.overview && <p className="text-red-500 text-sm">{errors.overview.message}</p>}
 
-                    <Input required label="Full Description *" className={errors.description ? "border-red-300" : ""} placeholder="Detailed project overview" {...register("description")} />
+                    <TextArea required label="Full Description *" className={errors.description ? "border-red-300" : ""} placeholder="Detailed project overview" {...register("description")} ></TextArea>
                     {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
 
                     <Input required label="Image URL *" className={errors.image ? "border-red-300" : ""} placeholder="https://example.com/image.jpg" {...register("image")} />
@@ -167,10 +169,10 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
                 <h2 className="text-lg font-bold text-neutral-900 mb-6">External Links</h2>
                 <div className="space-y-4">
 
-                    <Input required label="Source Code URL" className={errors.github ? "border-red-300" : ""} placeholder="https://github.com/username/repo" {...register("github")} />
+                    <Input label="Source Code URL" className={errors.github ? "border-red-300" : ""} placeholder="https://github.com/username/repo" {...register("github")} />
                     {errors.github && <p className="text-red-500 text-sm">{errors.github.message}</p>}
 
-                    <Input required label="Live Demo URL" className={errors.link ? "border-red-300" : ""} placeholder="https://example.com" {...register("link")} />
+                    <Input label="Live Demo URL" className={errors.link ? "border-red-300" : ""} placeholder="https://example.com" {...register("link")} />
                     {errors.link && <p className="text-red-500 text-sm">{errors.link.message}</p>}
 
                 </div>

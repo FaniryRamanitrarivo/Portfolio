@@ -1,3 +1,6 @@
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
+
 export default function AdminLayout({
   children,
 }: {
