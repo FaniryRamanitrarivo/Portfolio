@@ -1,16 +1,14 @@
-"use client";
-
 import Link from "next/link";
 import { MdAdd } from "react-icons/md";
 import { Table } from "../ui/table";
 import { api } from "@/src/lib/front/api/api";// Import your new component
 import { ProjectTableBody } from "./project-table-body";
-import useSWR from "swr";
 
-const fetcher = () => api.projects.latest(6);
+export const dynamic = "force-dynamic";
 
-export default function AdminProject() {
-    const { data: projects, mutate } = useSWR("/projects/latest", fetcher);
+export default async function AdminProject() {
+
+    const projects = await api.projects.list();
 
     return (
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

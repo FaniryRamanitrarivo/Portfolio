@@ -1,31 +1,41 @@
-// src/lib/api/fetcher.ts
-
 export type ApiResponse<T> = {
   success?: boolean;
   data: T;
   message?: string;
 };
 
-const API_URL =
-  process.env.API_URL ??
-  "https://silver-pancake-4j59xgvwx49h77pj-3000.app.github.dev/api";
+const API_URL = process.env.API_URL ?? "https://silver-pancake-4j59xgvwx49h77pj-3000.app.github.dev/api";
+
+type ApiFetchOptions = RequestInit & {
+  revalidate?: number;
+  tags?: string[];
+};
 
 export async function apiFetch<T>(
   endpoint: string,
-  options?: RequestInit & { revalidate?: number }
+  options?: ApiFetchOptions
 ): Promise<T> {
-
-  const url = `${API_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+  // const url = `${API_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+  const url = endpoint.startsWith("http")
+    ? endpoint // URL complète
+    : `${API_URL.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
+    
+  const { revalidate, tags, headers, ...rest } = options ?? {};
 
   const res = await fetch(url, {
+    ...rest,
     headers: {
       "Content-Type": "application/json",
-      ...(options?.headers ?? {}),
+      ...(headers ?? {}),
     },
-    ...options,
-    next: options?.revalidate
-      ? { revalidate: options.revalidate }
-      : undefined,
+    ...(revalidate !== undefined || tags
+      ? {
+          next: {
+            ...(revalidate !== undefined ? { revalidate } : {}),
+            ...(tags ? { tags } : {}),
+          },
+        }
+      : {}),
   });
 
   let json: ApiResponse<T>;

@@ -7,14 +7,17 @@ import { IoArrowBack } from "react-icons/io5";
 import { toast } from "sonner";
 import Button from "@/src/components/ui/button";
 import { api } from "@/src/lib/front/api/api";
+import { createProject } from "@/src/lib/actions/projects";
 
 export default function NewProjectPage() {
     const router = useRouter();
 
     async function handleCreate(data: ProjectFormSchema) {
         try {
-            await api.projects.create(data);
+            await createProject(data); // ⚡ server action
             toast.success("Projet created successfully");
+
+            // router.refresh();
             router.push("/admin/");
         } catch {
             toast.error("An error occured during the creation process");

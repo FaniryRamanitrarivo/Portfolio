@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Project } from "@/src/types/projects";
 import { useState, useEffect } from "react";
 import Image from "next/image"; // Improved performance
+import { deleteProject } from "@/src/lib/actions/projects";
 
 export function ProjectTableBody({ projects }: { projects: Project[] }) {
     const [projectsDatas, setProjectsDatas] = useState<Project[]>(projects);
@@ -25,7 +26,7 @@ export function ProjectTableBody({ projects }: { projects: Project[] }) {
 
         setIsDeleting(id);
         try {
-            await api.projects.delete(id);
+            await deleteProject(id);
 
             // Optimistic update
             setProjectsDatas(prev => prev.filter(p => p.id !== id));

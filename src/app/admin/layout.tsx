@@ -1,5 +1,5 @@
-import { ThemeProvider } from "next-themes";
-import { Toaster } from "sonner";
+
+export const dynamic = "force-dynamic";
 
 export default function AdminLayout({
   children,
