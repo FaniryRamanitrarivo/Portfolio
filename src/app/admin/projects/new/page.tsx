@@ -7,6 +7,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { toast } from "sonner";
 import Button from "@/src/components/ui/button";
 import { api } from "@/src/lib/front/api/api";
+import normalizeProjectForm from "@/src/lib/front/forms/normalizeProjectFrom";
 import { createProject } from "@/src/lib/actions/projects";
 
 export default function NewProjectPage() {
@@ -14,7 +15,8 @@ export default function NewProjectPage() {
 
     async function handleCreate(data: ProjectFormSchema) {
         try {
-            await createProject(data); // ⚡ server action
+            const normalized = normalizeProjectForm(data);
+            await createProject(normalized); // ⚡ server action
             toast.success("Projet created successfully");
 
             // router.refresh();

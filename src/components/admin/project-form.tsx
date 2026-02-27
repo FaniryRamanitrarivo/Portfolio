@@ -71,9 +71,10 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
 
         arrays.forEach(field => {
             if (field.fields.length === 0) {
-                field.append({ value: "" });
+                field.replace([{ value: "" }]);
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

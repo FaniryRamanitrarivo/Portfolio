@@ -87,7 +87,7 @@ export function ProjectTableBody({ projects }: { projects: Project[] }) {
                     <Table.Col className="text-right">
                         <div className="flex items-center justify-end space-x-2">
                             <button
-                                onClick={() => router.push(`/dashboard/projects/${project.id}/edit`)}
+                                onClick={() => router.push(`/admin/projects/${project.id}/edit`)}
                                 className="p-2 text-neutral-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                                 title="Edit Project"
                             >

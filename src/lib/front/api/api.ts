@@ -31,12 +31,17 @@ export const api = {
         tags: ["projects"],
       }),
 
+    getDenormalizeProject: (id: number) =>
+      apiFetch<Project>(`/projects/${id}`, {
+        revalidate: 60,
+        tags: ["projects"],
+      }),
+
     // ---------- WRITE ----------
-    create: (data: ProjectFormSchema, options?: { tags?: string[] }) => {
-      const normalized = normalizeProjectForm(data);
+    create: (data: Omit<Project, "id" | "createdAt" | "updatedAt">, options?: { tags?: string[] }) => {
       return apiFetch<Project>(`/projects`, {
         method: "POST",
-        body: JSON.stringify(normalized),
+        body: JSON.stringify(data),
         ...(options?.tags ? { tags: options.tags } : {}),
       });
     },
