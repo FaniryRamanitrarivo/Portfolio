@@ -2,7 +2,7 @@ export type Project = {
   id: number;
   title: string;
   role: string;
-  client: string;
+  client?: string | null;
   duration: string;
   overview: string;
   category?: string;

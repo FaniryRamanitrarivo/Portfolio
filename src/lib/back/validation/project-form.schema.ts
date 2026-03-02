@@ -12,7 +12,11 @@ const itemSchema = z.object({
 export const projectFormSchema = z.object({
   title: z.string().min(2),
   role: z.string().min(2),
-  client: z.string().optional(),
+  // client: z.string().optional(),
+  client: z.preprocess(
+      (v) => (v === "" ? null : v),
+      z.string().nullable().optional()
+    ),
   duration: z.string(),
   overview: z.string().min(10),
   category: z.string(),

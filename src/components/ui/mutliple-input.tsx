@@ -29,7 +29,7 @@ export default function MultipleInput<
 }: Props<T, N>) {
 
     const { fields, append, remove } = fieldArray;
-    console.log('fieldArray => ', fieldArray)
+
     return (
         <div className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-lg font-bold text-neutral-900 mb-6">{title}</h2>

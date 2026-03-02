@@ -9,8 +9,9 @@ function normalizeArray(arr: Item[] | string[]): string[] {
 }
 
 // Transforme url facultative → string (toujours non-null pour ton type Project)
-function normalizeUrl(url?: string): string {
-  return url?.trim() || "";
+function normalizeUrl(url?: string): string | undefined {
+  const trimmed = url?.trim();
+  return trimmed?.length ? trimmed : undefined;
 }
 
 // Normalise FormSchema → Project (prêt à envoyer à l’API ou DB)
@@ -20,13 +21,13 @@ export default function normalizeProjectForm(data: ProjectFormSchema): Omit<Proj
     role: data.role,
     duration: data.duration,
     overview: data.overview,
-    category: data.category || "",
-    description: data.description || "",
-    image: data.image || "",
-    client: data.client || "",
+    category: data.category,
+    description: data.description,
+    image: data.image,
+    client: data.client,
 
-    github: normalizeUrl(data.github),
-    link: normalizeUrl(data.link),
+    github: normalizeUrl(data.github), // ⚡ undefined si vide
+    link: normalizeUrl(data.link),     // ⚡ undefined si vide
 
     responsibilities: normalizeArray(data.responsibilities),
     keyResults: normalizeArray(data.keyResults),

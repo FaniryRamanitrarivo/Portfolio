@@ -26,7 +26,7 @@ model Project {
   id               Int      @id @default(autoincrement())
   title            String
   role             String
-  client           String
+  client           String?
   duration         String
   overview         String
   category         String?

@@ -51,6 +51,7 @@ export default function EditProjectPage() {
     }, [projectId, router]);
 
     async function handleEdit(data: ProjectFormSchema) {
+        console.log('data => ', data)
         try {
             await updateProject(projectId, data);
             toast.success("Projet updated successfully");
