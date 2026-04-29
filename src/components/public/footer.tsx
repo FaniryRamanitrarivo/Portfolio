@@ -6,8 +6,8 @@ import { scrollToSection } from "../../lib/front/animation/scroll";
 
 const socialsMediaLinks = {
     'email': 'faniryram0@gmail.com',
-    'linkedin': '#',
-    'github': '#',
+    'linkedin': 'https://www.linkedin.com/in/faniriniaina-andry-ramanitrarivo-59b47b249',
+    'github': 'https://github.com/FaniryRamanitrarivo',
 }
 
 export default function Footer() {

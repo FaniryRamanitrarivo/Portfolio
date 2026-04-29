@@ -2,6 +2,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
+import Providers from "./providers";
 
 // Font principale : Space Grotesk
 const spaceGrotesk = Space_Grotesk({
@@ -25,10 +26,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-neutral-950 text-neutral-100 antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Toaster richColors />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+            <Toaster richColors />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

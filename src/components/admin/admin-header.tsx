@@ -1,3 +1,6 @@
+"use client"
+
+import { signOut } from "next-auth/react";
 import { TbLogout2 } from "react-icons/tb";
 
 export default function AdminNavbar() {
@@ -11,7 +14,9 @@ export default function AdminNavbar() {
                                 Admin <span className="text-accent-600">Dashboard</span>
                             </h1>
                         </div>
-                        <button className="px-4 py-2 text-sm text-neutral-700 flex items-center hover:text-neutral-900 transition-colors cursor-pointer whitespace-nowrap">
+                        <button 
+                            className="px-4 py-2 text-sm text-neutral-700 flex items-center hover:text-neutral-900 transition-colors cursor-pointer whitespace-nowrap"
+                            onClick={() => signOut({ callbackUrl: "/login" })}>
                             <TbLogout2 className="ri-logout-box-line mr-2" />Logout
                         </button>
                     </div>

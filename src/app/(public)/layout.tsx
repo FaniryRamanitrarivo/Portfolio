@@ -8,7 +8,7 @@ export default function PublicLayout({
   return (
     <main className="mx-auto">
       {children}
-      {modal}
+      {modal ?? null}
     </main>
   );
 }

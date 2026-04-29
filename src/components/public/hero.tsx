@@ -56,7 +56,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg text-neutral-600 mx-auto max-w-xl lg:text-justify font-display">
-              I help companies collect reliable web data and build scalable web applications. With 5+ years delivering production-grade solutions, I bring technical expertise and business impact to every project.
+              I help companies collect reliable web data and build scalable web applications. With 2+ years delivering production-grade solutions, I bring technical expertise and business impact to every project.
             </p>
 
             <div className="flex gap-4 flex-wrap justify-center lg:justify-start">
