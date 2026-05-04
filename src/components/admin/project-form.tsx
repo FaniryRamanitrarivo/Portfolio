@@ -18,19 +18,14 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
 
     const router = useRouter();
 
-    const form = useForm<ProjectFormSchema>({
-        resolver: zodResolver(projectFormSchema),
-        defaultValues: {
-            popular: false,
-            responsibilities: [],
-            keyResults: [],
-            challenges: [],
-            solutions: [],
-            technologies: [],
-            github: undefined,
-            link: undefined,
-            ...defaultValues,
-        },
+    const form = useForm<z.infer<typeof projectFormSchema>>({
+    resolver: zodResolver(projectFormSchema),
+    defaultValues: {
+        popular: false,
+        responsibilities: [],
+        keyResults: [],
+        challenges: [],
+    },
     });
 
     const { register, handleSubmit, control, formState: { errors, isSubmitting } } = form;
