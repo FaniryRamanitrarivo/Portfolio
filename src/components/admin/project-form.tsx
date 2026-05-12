@@ -1,34 +1,69 @@
 "use client";
 
-import { useFieldArray, useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+    useFieldArray,
+    useForm,
+    type SubmitHandler,
+} from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 import MultipleInput from "../ui/mutliple-input";
 import { Input, TextArea } from "../ui/input";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { projectFormSchema, ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
-// import { useRouter } from "next/router";
+
+import { projectFormSchema } from "@/src/lib/back/validation/project-form.schema";
+
+type ProjectFormValues = z.input<typeof projectFormSchema>;
 
 type Props = {
-    defaultValues?: Partial<ProjectFormSchema>;
-    onSubmit: (data: ProjectFormSchema) => Promise<void>;
+    defaultValues?: Partial<ProjectFormValues>;
+    onSubmit: SubmitHandler<ProjectFormValues>;
 };
 
-export function ProjectForm({ defaultValues, onSubmit }: Props) {
-
+export function ProjectForm({
+    defaultValues,
+    onSubmit,
+}: Props) {
     const router = useRouter();
 
-    const form = useForm<z.infer<typeof projectFormSchema>>({
-    resolver: zodResolver(projectFormSchema),
-    defaultValues: {
-        popular: false,
-        responsibilities: [],
-        keyResults: [],
-        challenges: [],
-    },
+    const form = useForm<ProjectFormValues>({
+        resolver: zodResolver(projectFormSchema),
+
+        defaultValues: {
+            title: "",
+            client: "",
+            role: "",
+            duration: "",
+            overview: "",
+            category: "",
+            description: "",
+            image: "",
+            github: "",
+            link: "",
+            popular: false,
+
+            responsibilities: [],
+            keyResults: [],
+            challenges: [],
+            solutions: [],
+            technologies: [],
+
+            ...defaultValues,
+        },
     });
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitting } } = form;
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: {
+            errors,
+            isSubmitting,
+        },
+    } = form;
 
     const responsibilitiesFieldArray = useFieldArray({
         control,
@@ -61,68 +96,170 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
             keyResultsFieldArray,
             challengesFieldArray,
             solutionsFieldArray,
-            technologiesFieldArray
+            technologiesFieldArray,
         ];
 
-        arrays.forEach(field => {
+        arrays.forEach((field) => {
             if (field.fields.length === 0) {
                 field.replace([{ value: "" }]);
             }
         });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-8"
         >
-            <fieldset disabled={isSubmitting} className="space-y-8 disabled:opacity-80">
+            <fieldset
+                disabled={isSubmitting}
+                className="space-y-8 disabled:opacity-80"
+            >
                 <div className="bg-white rounded-xl shadow-sm p-6">
-                    <h2 className="text-lg font-bold text-neutral-900 mb-6">Basic Information</h2>
+                    <h2 className="text-lg font-bold text-neutral-900 mb-6">
+                        Basic Information
+                    </h2>
+
                     <div className="space-y-4">
+                        <Input
+                            required
+                            label="Project Title *"
+                            className={errors.title ? "border-red-300" : ""}
+                            placeholder="E-Commerce Price Monitoring System"
+                            {...register("title")}
+                        />
 
-                        <Input required label="Project Title *" className={errors.title ? "border-red-300" : ""} placeholder="E-Commerce Price Monitoring System" {...register("title")} />
-                        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+                        {errors.title && (
+                            <p className="text-red-500 text-sm">
+                                {errors.title.message}
+                            </p>
+                        )}
 
                         <div className="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <Input
+                                    label="Client"
+                                    className={errors.client ? "border-red-300" : ""}
+                                    placeholder="Company Name"
+                                    {...register("client")}
+                                />
 
-                            <Input label="Client" className={errors.client ? "border-red-300" : ""} placeholder="Company Name" {...register("client")} />
-                            {errors.client && <p className="text-red-500 text-sm">{errors.client.message}</p>}
+                                {errors.client && (
+                                    <p className="text-red-500 text-sm">
+                                        {String(errors.client.message)}
+                                    </p>
+                                )}
+                            </div>
 
-                            <Input required label="Your Role *" className={errors.role ? "border-red-300" : ""} placeholder="Lead Developer" {...register("role")} />
-                            {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
+                            <div>
+                                <Input
+                                    required
+                                    label="Your Role *"
+                                    className={errors.role ? "border-red-300" : ""}
+                                    placeholder="Lead Developer"
+                                    {...register("role")}
+                                />
 
+                                {errors.role && (
+                                    <p className="text-red-500 text-sm">
+                                        {errors.role.message}
+                                    </p>
+                                )}
+                            </div>
                         </div>
+
                         <div className="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <Input
+                                    required
+                                    label="Duration *"
+                                    className={errors.duration ? "border-red-300" : ""}
+                                    placeholder="3 months"
+                                    {...register("duration")}
+                                />
 
-                            <Input required label="Duration *" className={errors.duration ? "border-red-300" : ""} placeholder="3 months" {...register("duration")} />
-                            {errors.duration && <p className="text-red-500 text-sm">{errors.duration.message}</p>}
+                                {errors.duration && (
+                                    <p className="text-red-500 text-sm">
+                                        {errors.duration.message}
+                                    </p>
+                                )}
+                            </div>
 
-                            <Input required label="Category *" className={errors.category ? "border-red-300" : ""} placeholder="Category" {...register("category")} />
-                            {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+                            <div>
+                                <Input
+                                    required
+                                    label="Category *"
+                                    className={errors.category ? "border-red-300" : ""}
+                                    placeholder="Category"
+                                    {...register("category")}
+                                />
 
+                                {errors.category && (
+                                    <p className="text-red-500 text-sm">
+                                        {errors.category.message}
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
-                        <TextArea required label="Overview *" className={errors.overview ? "border-red-300" : ""} placeholder="Brief one-line description for the project card" {...register("overview")} ></TextArea>
-                        {errors.overview && <p className="text-red-500 text-sm">{errors.overview.message}</p>}
+                        <div>
+                            <TextArea
+                                required
+                                label="Overview *"
+                                className={errors.overview ? "border-red-300" : ""}
+                                placeholder="Brief one-line description for the project card"
+                                {...register("overview")}
+                            />
 
-                        <TextArea required label="Full Description *" className={errors.description ? "border-red-300" : ""} placeholder="Detailed project overview" {...register("description")} ></TextArea>
-                        {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+                            {errors.overview && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.overview.message}
+                                </p>
+                            )}
+                        </div>
 
-                        <Input required label="Image URL *" className={errors.image ? "border-red-300" : ""} placeholder="https://example.com/image.jpg" {...register("image")} />
-                        {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
+                        <div>
+                            <TextArea
+                                required
+                                label="Full Description *"
+                                className={errors.description ? "border-red-300" : ""}
+                                placeholder="Detailed project overview"
+                                {...register("description")}
+                            />
 
+                            {errors.description && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.description.message}
+                                </p>
+                            )}
+                        </div>
+
+                        <div>
+                            <Input
+                                required
+                                label="Image URL *"
+                                className={errors.image ? "border-red-300" : ""}
+                                placeholder="https://example.com/image.jpg"
+                                {...register("image")}
+                            />
+
+                            {errors.image && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.image.message}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
                 <MultipleInput
-                    title="Responsabilities"
+                    title="Responsibilities"
                     fieldArray={responsibilitiesFieldArray}
                     register={register}
                     name="responsibilities"
-                    placeholder="Responsabilities"
+                    placeholder="Responsibilities"
                     errors={errors}
                 />
 
@@ -163,26 +300,52 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
                 />
 
                 <div className="bg-white rounded-xl shadow-sm p-6">
-                    <h2 className="text-lg font-bold text-neutral-900 mb-6">External Links</h2>
+                    <h2 className="text-lg font-bold text-neutral-900 mb-6">
+                        External Links
+                    </h2>
+
                     <div className="space-y-4">
+                        <div>
+                            <Input
+                                label="Source Code URL"
+                                className={errors.github ? "border-red-300" : ""}
+                                placeholder="https://github.com/username/repo"
+                                {...register("github")}
+                            />
 
-                        <Input label="Source Code URL" className={errors.github ? "border-red-300" : ""} placeholder="https://github.com/username/repo" {...register("github")} />
-                        {errors.github && <p className="text-red-500 text-sm">{errors.github.message}</p>}
+                            {errors.github && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.github.message}
+                                </p>
+                            )}
+                        </div>
 
-                        <Input label="Live Demo URL" className={errors.link ? "border-red-300" : ""} placeholder="https://example.com" {...register("link")} />
-                        {errors.link && <p className="text-red-500 text-sm">{errors.link.message}</p>}
+                        <div>
+                            <Input
+                                label="Live Demo URL"
+                                className={errors.link ? "border-red-300" : ""}
+                                placeholder="https://example.com"
+                                {...register("link")}
+                            />
 
+                            {errors.link && (
+                                <p className="text-red-500 text-sm">
+                                    {errors.link.message}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
                 <div className="flex items-center justify-end space-x-3 pt-4">
-
                     <button
                         onClick={() => router.back()}
                         type="button"
-                        className="px-6 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
+                        className="px-6 py-3 text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+                    >
                         Cancel
                     </button>
+
                     <button
                         type="submit"
                         disabled={isSubmitting}
@@ -191,15 +354,21 @@ export function ProjectForm({ defaultValues, onSubmit }: Props) {
                         {isSubmitting ? (
                             <>
                                 <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                {defaultValues ? "Updating..." : "Creating..."}
+
+                                {defaultValues
+                                    ? "Updating..."
+                                    : "Creating..."}
                             </>
                         ) : (
-                            <>{defaultValues ? "Update project" : "Create project"}</>
+                            <>
+                                {defaultValues
+                                    ? "Update project"
+                                    : "Create project"}
+                            </>
                         )}
                     </button>
-
                 </div>
             </fieldset>
         </form>
-    )
+    );
 }

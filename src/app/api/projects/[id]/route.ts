@@ -1,46 +1,45 @@
 import { AppError } from "@/src/lib/back/errors";
 import { safeHandler } from "@/src/lib/back/handler";
-import { projectRepository } from "@/src/lib/back/projects/repository";
-import { parseId } from "@/src/lib/back/utils/parse-id";
+import { projectServiceServer } from "@/src/server/services/project.service";
 import { NextRequest } from "next/server";
 import { projectUpdateSchema } from "../schema";
-import { projectService } from "@/src/lib/back/projects/service";
 
+/**
+ * GET /api/projects/[id]
+ * Récupère un projet spécifique par son ID
+ */
 export async function GET(
-  req: NextRequest,
+  _req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params;
 
   return safeHandler(async () => {
-    const projectId = parseId(id);
+    const projectId = Number(id);
 
-    const project = await projectService.getByIdOrThrow(projectId);
-
-    if (!project) {
-      // Si aucun projet trouvé, on renvoie une erreur 404 explicite
-      throw new AppError(`Project with ID ${projectId} not found`, 404);
+    if (!Number.isInteger(projectId) || projectId <= 0) {
+      throw new AppError("Invalid project ID", 400);
     }
 
-    // Retourne directement le projet
-    return project;
+    return projectServiceServer.getProjectById(projectId);
   });
 }
 
+/**
+ * PUT /api/projects/[id]
+ * Met à jour un projet
+ */
 export async function PUT(
   req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-
   const { id } = await context.params;
 
   return safeHandler(async () => {
-    const projectId = parseId(id);
-    const existingProject  = await projectService.getByIdOrThrow(projectId);
-    
-    if (!existingProject ) {
-      // Si aucun projet trouvé, on renvoie une erreur 404 explicite
-      throw new AppError(`Project with ID ${projectId} not found`, 404);
+    const projectId = Number(id);
+
+    if (!Number.isInteger(projectId) || projectId <= 0) {
+      throw new AppError("Invalid project ID", 400);
     }
 
     const body = await req.json();
@@ -48,30 +47,34 @@ export async function PUT(
     const parsed = projectUpdateSchema.safeParse(body);
     if (!parsed.success) {
       throw new AppError(
-        parsed.error.issues.map(i => i.message).join(", "),
+        parsed.error.issues.map((i) => i.message).join(", "),
         400
       );
     }
 
-    return projectService.update(projectId, parsed.data);
+    return projectServiceServer.updateProject(projectId, parsed.data);
   });
 }
 
+/**
+ * DELETE /api/projects/[id]
+ * Supprime un projet
+ */
 export async function DELETE(
   _req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-
   const { id } = await context.params;
 
   return safeHandler(async () => {
-    const projectId = parseId(id);
-    const existingProject  = await projectService.getByIdOrThrow(projectId);
-    
-    if (existingProject ) {
-      await projectService.delete(projectId);
-      return { message: `Project ${projectId} deleted successfully` };
+    const projectId = Number(id);
+
+    if (!Number.isInteger(projectId) || projectId <= 0) {
+      throw new AppError("Invalid project ID", 400);
     }
-    
+
+    await projectServiceServer.deleteProject(projectId);
+    return { message: `Project ${projectId} deleted successfully` };
   });
 }
+

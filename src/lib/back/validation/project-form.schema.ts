@@ -1,38 +1,41 @@
-import { z } from "zod";
-
-const optionalUrl = z
-  .union([z.string().url(), z.literal("")])
-  .transform(v => v === "" ? undefined : v)
-  .optional();
+import * as z from "zod";
 
 const itemSchema = z.object({
-  value: z.string().min(1, "Ce champ ne peut pas être vide"),
+    value: z.string().min(1),
 });
 
 export const projectFormSchema = z.object({
-  title: z.string().min(2),
-  role: z.string().min(2),
-  // client: z.string().optional(),
-  client: z.preprocess(
-      (v) => (v === "" ? null : v),
-      z.string().nullable().optional()
-    ),
-  duration: z.string(),
-  overview: z.string().min(10),
-  category: z.string(),
-  description: z.string(),
-  image: z.string().url(),
+    title: z.string().min(1),
 
-  github: optionalUrl,
-  link: optionalUrl,
+    client: z.string().optional(),
 
-  responsibilities: z.array(itemSchema).min(1),
-  keyResults: z.array(itemSchema).min(1),
-  challenges: z.array(itemSchema).min(1),
-  solutions: z.array(itemSchema).min(1),
-  technologies: z.array(itemSchema).min(1),
+    role: z.string().min(1),
 
-  popular: z.boolean(),
+    duration: z.string().min(1),
+
+    overview: z.string().min(1),
+
+    category: z.string().min(1),
+
+    description: z.string().min(1),
+
+    image: z.string().min(1),
+
+    github: z.string().optional(),
+
+    link: z.string().optional(),
+
+    popular: z.boolean(),
+
+    responsibilities: z.array(itemSchema),
+
+    keyResults: z.array(itemSchema),
+
+    challenges: z.array(itemSchema),
+
+    solutions: z.array(itemSchema),
+
+    technologies: z.array(itemSchema),
 });
 
-export type ProjectFormSchema = z.infer<typeof projectFormSchema>;
+export type ProjectFormSchema = z.input<typeof projectFormSchema>;

@@ -1,33 +1,77 @@
 "use server";
 
-import { api } from "@/src/lib/front/api/api";
-import { ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
+import { projectServiceServer } from "@/src/server/services/project.service";
+import type { ProjectDTO } from "@/src/types/projects";
 import { revalidateTag } from "next/cache";
-import { Project } from "@/src/types/projects";
+import { AppError } from "@/src/lib/back/errors";
 
-export async function createProject(data: Omit<Project, "id" | "createdAt" | "updatedAt">) {
-  const result = await api.projects.create(data, { tags: ["projects"] });
-
-  // ⚡ invalide le tag "projects" avec profile "max"
-  revalidateTag("projects", "max");
-
-  return result;
+/**
+ * Server Action pour créer un projet
+ * Appelle directement le service serveur (sans fetch HTTP)
+ */
+export async function createProject(
+  data: Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">
+) {
+  try {
+    const result = await projectServiceServer.createProject(data);
+    // Invalide le cache ISR pour les projets
+    revalidateTag("projects", "max");
+    return result;
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to create project");
+  }
 }
 
-export async function updateProject(id: number, data: ProjectFormSchema) {
-  const result = await api.projects.update(id, data, { tags: ["projects"] });
-
-  // ⚡ invalide le tag "projects" avec profile "max"
-  revalidateTag("projects", "max");
-
-  return result;
+/**
+ * Server Action pour mettre à jour un projet
+ */
+export async function updateProject(
+  id: number,
+  data: Partial<Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">>
+) {
+  try {
+    const result = await projectServiceServer.updateProject(id, data);
+    // Invalide le cache ISR
+    revalidateTag("projects", "max");
+    return result;
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to update project");
+  }
 }
 
+/**
+ * Server Action pour supprimer un projet
+ */
 export async function deleteProject(id: number) {
-  await api.projects.delete(id);
-  revalidateTag("projects", "max");
+  try {
+    await projectServiceServer.deleteProject(id);
+    // Invalide le cache ISR
+    revalidateTag("projects", "max");
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to delete project");
+  }
 }
 
-export async function getProjectBy(id: number) {
-  return api.projects.get(id);
+/**
+ * Server Action pour récupérer un projet par ID
+ * (Utile pour les Client Components qui ne peuvent pas importer les services serveur)
+ */
+export async function getProjectById(id: number) {
+  try {
+    return await projectServiceServer.getProjectById(id);
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to fetch project");
+  }
 }

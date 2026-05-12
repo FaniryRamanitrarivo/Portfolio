@@ -6,43 +6,35 @@ datasource db {
   provider = "sqlite"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
-
+/**
+ * Modèle Project - Portfolio projects
+ * Stocke les détails de chaque projet dans le portfolio
+ */
 model Project {
   id               Int      @id @default(autoincrement())
-  title            String
-  role             String
-  client           String?
-  duration         String
-  overview         String
-  category         String?
-  description      String?
-  image            String?
-  github           String?
-  link             String?
+  title            String   @db.Text
+  role             String   @db.Text
+  client           String?  @db.Text
+  duration         String   @db.Text
+  overview         String   @db.Text
+  category         String?  @db.Text
+  description      String?  @db.Text
+  image            String?  @db.Text
+  github           String?  @db.Text
+  link             String?  @db.Text
 
-  responsibilities Json
-  keyResults       Json
-  challenges       Json
-  solutions        Json
-  technologies     Json
+  // JSON fields for storing arrays
+  responsibilities Json     @default("[]")
+  keyResults       Json     @default("[]")
+  challenges       Json     @default("[]")
+  solutions        Json     @default("[]")
+  technologies     Json     @default("[]")
 
+  // Metadata
   popular          Boolean  @default(false)
-
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+
+  @@index([popular])
+  @@index([createdAt])
 }

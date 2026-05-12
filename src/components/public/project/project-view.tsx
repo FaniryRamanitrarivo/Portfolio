@@ -17,14 +17,20 @@ export default function ProjectView({ project }: ProjectViewProps ) {
     return(
         
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-            <div className="relative h-48 sm:h-64 overflow-hidden">
-                <img 
-                    alt={ project.title } 
-                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" 
-                    src={ project.image }
-                     />
+            <div className="relative h-48 sm:h-64 overflow-hidden bg-neutral-100">
+                {project.image ? (
+                  <img
+                    alt={project.title}
+                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                    src={project.image}
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-neutral-500 text-sm uppercase tracking-[0.2em]">
+                    No image available
+                  </div>
+                )}
                 <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-neutral-900 rounded-full text-sm font-medium">{ project.category }</span>
+                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-neutral-900 rounded-full text-sm font-medium">{project.category}</span>
                 </div>
             </div>
             <div className="p-4 sm:p-6">

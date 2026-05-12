@@ -1,64 +1,29 @@
-// src/lib/api/api.ts
-import { Project } from "@/src/types/projects";
-import { apiFetch } from "./fetcher";
-import { ProjectFormSchema } from "@/src/lib/back/validation/project-form.schema";
-import normalizeProjectForm from "../forms/normalizeProjectFrom";
+/**
+ * Couche API centralisée - Point d'entrée unique
+ * Architecture clean code & clean architecture
+ *
+ * Avantages de cette refactorisation :
+ * - Separation of Concerns : chaque fichier a une responsabilité unique
+ * - DRY : pas de duplication des configurations de cache
+ * - SOLID : Single Responsibility Principle
+ * - Maintenabilité : configuration centralisée et facile à modifier
+ * - Testabilité : Repository pattern permet des tests unitaires simples
+ * - Extensibilité : ajout facile de nouveaux endpoints
+ */
+
+export { ProjectsRepository as projects } from "./projects-repository";
+export type {
+  CreateProjectInput,
+  UpdateProjectInput,
+  MutationOptions,
+  CacheConfig,
+  ApiEndpointOptions,
+} from "./types";
+export { CACHE_CONFIG } from "./cache-config";
+
+// Alias pour compatibilité avec le code existant
+import { ProjectsRepository } from "./projects-repository";
 
 export const api = {
-  projects: {
-    // ---------- READ ----------
-    list: (view: "summary" | "full" = "full") =>
-      apiFetch<Project[]>(`/projects?view=${view}`, {
-        revalidate: 60,
-        tags: ["projects"],
-      }),
-
-    latest: (limit = 10) =>
-      apiFetch<Project[]>(`/projects?limit=${limit}&order=desc`, {
-        revalidate: 60,
-        tags: ["projects"],
-      }),
-
-    mostPopular: (limit = 10) =>
-      apiFetch<Project[]>(`/projects?limit=${limit}&popular=true`, {
-        revalidate: 60,
-        tags: ["projects"],
-      }),
-
-    get: (id: number) =>
-      apiFetch<Project>(`/projects/${id}`, {
-        revalidate: 60,
-        tags: ["projects"],
-      }),
-
-    getDenormalizeProject: (id: number) =>
-      apiFetch<Project>(`/projects/${id}`, {
-        revalidate: 60,
-        tags: ["projects"],
-      }),
-
-    // ---------- WRITE ----------
-    create: (data: Omit<Project, "id" | "createdAt" | "updatedAt">, options?: { tags?: string[] }) => {
-      return apiFetch<Project>(`/projects`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        ...(options?.tags ? { tags: options.tags } : {}),
-      });
-    },
-
-    update: (id: number, data: ProjectFormSchema, options?: { tags?: string[] }) => {
-      const normalized = normalizeProjectForm(data);
-      return apiFetch<Project>(`/projects/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(normalized),
-        ...(options?.tags ? { tags: options.tags } : {}),
-      });
-    },
-
-    delete: (id: number, options?: { tags?: string[] }) =>
-      apiFetch<void>(`/projects/${id}`, {
-        method: "DELETE",
-        ...(options?.tags ? { tags: options.tags } : {}),
-      }),
-  },
+  projects: ProjectsRepository,
 };

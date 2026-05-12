@@ -24,10 +24,10 @@ export default function normalizeProjectForm(data: ProjectFormSchema): Omit<Proj
     category: data.category,
     description: data.description,
     image: data.image,
-    client: data.client,
+    client: data.client ?? null,
 
-    github: normalizeUrl(data.github), // ⚡ undefined si vide
-    link: normalizeUrl(data.link),     // ⚡ undefined si vide
+    github: normalizeUrl(data.github) ?? null, // ⚡ undefined si vide
+    link: normalizeUrl(data.link) ?? null,     // ⚡ undefined si vide
 
     responsibilities: normalizeArray(data.responsibilities),
     keyResults: normalizeArray(data.keyResults),
