@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 /**
@@ -12,16 +13,16 @@ datasource db {
  */
 model Project {
   id               Int      @id @default(autoincrement())
-  title            String   @db.Text
-  role             String   @db.Text
-  client           String?  @db.Text
-  duration         String   @db.Text
-  overview         String   @db.Text
-  category         String?  @db.Text
-  description      String?  @db.Text
-  image            String?  @db.Text
-  github           String?  @db.Text
-  link             String?  @db.Text
+  title            String
+  role             String
+  client           String?
+  duration         String
+  overview         String
+  category         String?
+  description      String?
+  image            String?
+  github           String?
+  link             String?
 
   // JSON fields for storing arrays
   responsibilities Json     @default("[]")

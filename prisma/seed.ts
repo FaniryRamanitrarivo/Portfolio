@@ -1,32 +1,20 @@
 import { prisma } from '../src/lib/back/db'
 
 async function main() {
-  // Create a new user with a post
-  const user = await prisma.user.create({
+  const project = await prisma.project.create({
     data: {
-      name: 'Alice',
-      email: 'alice@prisma.io',
-      posts: {
-        create: {
-          title: 'Hello World',
-          content: 'This is my first post!',
-          published: true,
-        },
-      },
-    },
-    include: {
-      posts: true,
+      title: 'Seed Project',
+      role: 'Fullstack Developer',
+      duration: '2 months',
+      overview: 'This is a seed project for initial database setup.',
+      responsibilities: [],
+      keyResults: [],
+      challenges: [],
+      solutions: [],
+      technologies: [],
     },
   })
-  console.log('Created user:', user)
-
-  // Fetch all users with their posts
-  const allUsers = await prisma.user.findMany({
-    include: {
-      posts: true,
-    },
-  })
-  console.log('All users:', JSON.stringify(allUsers, null, 2))
+  console.log('Created project:', project)
 }
 
 main()
