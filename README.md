@@ -57,7 +57,7 @@ npm install
 ### Create `.env` file
 
 ```bash
-DATABASE_URL="sqlite:./dev.db" # or your PostgreSQL/MySQL connection
+DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
 NEXT_PUBLIC_API_URL="http://localhost:3000"
 ```
 
