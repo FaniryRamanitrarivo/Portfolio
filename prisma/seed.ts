@@ -1,4 +1,6 @@
-import { prisma } from '../src/lib/back/db'
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 async function main() {
   const project = await prisma.project.create({
