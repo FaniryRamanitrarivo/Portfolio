@@ -25,8 +25,8 @@ export default async function Project() {
               {projects.length === 0 ? (
                 <p>No projects found</p>
               ) : (
-                projects.map((p) => (
-                  <ProjectView key={p.id} project={p} />
+                projects.map((p, index) => (
+                  <ProjectView key={p.id} project={p} priority={index < 2} />
                 ))
               )}
             </div>

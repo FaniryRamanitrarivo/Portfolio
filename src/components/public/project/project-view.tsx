@@ -4,9 +4,10 @@ import Link from "next/link";
 
 type ProjectViewProps = {
   project: Project;
+  priority?: boolean;
 };
 
-export default function ProjectView({ project }: ProjectViewProps ) {
+export default function ProjectView({ project, priority = false }: ProjectViewProps ) {
 
     const stacks = project.technologies.length > 3 ? 
         [
@@ -26,6 +27,7 @@ export default function ProjectView({ project }: ProjectViewProps ) {
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
                     src={project.image}
+                    priority={priority}
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center text-neutral-500 text-sm uppercase tracking-[0.2em]">
