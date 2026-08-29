@@ -4,6 +4,7 @@ import { projectServiceServer } from "@/src/server/services/project.service";
 import type { ProjectDTO } from "@/src/types/projects";
 import { revalidateTag } from "next/cache";
 import { AppError } from "@/src/lib/back/errors";
+import { projectSchema, projectUpdateSchema } from "@/src/lib/shared/project.schema";
 
 /**
  * Server Action pour créer un projet
@@ -12,8 +13,16 @@ import { AppError } from "@/src/lib/back/errors";
 export async function createProject(
   data: Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">
 ) {
+  // Server Actions are network-callable regardless of client-side (RHF)
+  // validation, so re-validate here — this is the one place both the admin
+  // form and any other caller of this action go through.
+  const parsed = projectSchema.safeParse(data);
+  if (!parsed.success) {
+    throw new Error(parsed.error.issues.map((i) => i.message).join(", "));
+  }
+
   try {
-    const result = await projectServiceServer.createProject(data);
+    const result = await projectServiceServer.createProject(parsed.data);
     // Invalide le cache ISR pour les projets
     revalidateTag("projects", "max");
     return result;
@@ -32,8 +41,13 @@ export async function updateProject(
   id: number,
   data: Partial<Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">>
 ) {
+  const parsed = projectUpdateSchema.safeParse(data);
+  if (!parsed.success) {
+    throw new Error(parsed.error.issues.map((i) => i.message).join(", "));
+  }
+
   try {
-    const result = await projectServiceServer.updateProject(id, data);
+    const result = await projectServiceServer.updateProject(id, parsed.data);
     // Invalide le cache ISR
     revalidateTag("projects", "max");
     return result;
