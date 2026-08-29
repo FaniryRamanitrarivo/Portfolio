@@ -3,7 +3,7 @@ import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { env } from "@/src/lib/env"
 
-const allowedEmails = [
+export const allowedEmails = [
   "faniryram0@gmail.com",
   // "faniriniaina.ram@smartone.ai",
 ]

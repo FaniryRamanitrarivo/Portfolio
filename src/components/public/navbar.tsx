@@ -9,8 +9,10 @@ import { scrollToSection } from "../../lib/front/animation/scroll";
 import { SECTIONS } from "../../lib/front/constant";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
 
+const SECTION_IDS = SECTIONS.map(s => s.id);
+
 export default function Navbar() {
-    const activeId = useScrollSpy(SECTIONS.map(s => s.id));
+    const activeId = useScrollSpy(SECTION_IDS);
     const [isOpen, setIsOpen] = useState(false);
 
     const navRef = useRef<HTMLDivElement | null>(null);

@@ -42,9 +42,9 @@ If asked to extend project data-fetching, extend the `src/server/repositories` �
 - `src/app/admin/` — back office (project CRUD), protected by `src/middleware.ts` (matches `/admin/:path*`).
 - `src/app/api/` — route handlers (`projects`, `contact`, `auth/[...nextauth]`, `secure`).
 
-### Auth — two separate allowlists
+### Auth — one shared allowlist
 
-NextAuth (`src/lib/auth.ts`) supports GitHub + Google, but access is gated by a hardcoded `allowedEmails` array in the `signIn` callback. `src/lib/auth-guard.ts` (`requireAuth()`, used by `/api/secure`) has its **own separate** `allowedEmails` array. `src/middleware.ts` only checks that a JWT exists (not the allowlist) — the actual identity gate happens at sign-in time via the callback. If you change who's allowed in, update both files.
+NextAuth (`src/lib/auth.ts`) supports GitHub + Google, and access is gated by an exported `allowedEmails` array checked in the `signIn` callback. `src/lib/auth-guard.ts` (`requireAuth()`, used by `/api/secure`) imports that same array rather than keeping its own copy. `src/middleware.ts` only checks that a JWT exists (not the allowlist) — the actual identity gate happens at sign-in time via the callback.
 
 ### Project entity — three schemas, one shape
 

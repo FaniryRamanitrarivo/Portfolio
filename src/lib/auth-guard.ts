@@ -1,15 +1,11 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "./auth";
-
-const allowedEmails = [
-    "faniryram0@gmail.com", 
-    // "faniriniaina.ram@smartone.ai"
-];
+import { allowedEmails, authOptions } from "./auth";
 
 export async function requireAuth() {
     const session = await getServerSession(authOptions);
+    const email = session?.user?.email;
 
-    if(!session || !allowedEmails.includes(session.user?.email!)) {
+    if (!email || !allowedEmails.includes(email)) {
         throw new Error('Unauthorized');
     }
 

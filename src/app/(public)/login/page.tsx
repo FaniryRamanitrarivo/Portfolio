@@ -1,6 +1,7 @@
 "use client";
 
 import AuthButton from "@/src/components/ui/auth-button";
+import AuthProvider from "@/src/app/providers";
 
 
 export default function LoginPage() {
@@ -28,7 +29,9 @@ export default function LoginPage() {
         </div>
 
         {/* Auth buttons */}
-        <AuthButton />
+        <AuthProvider>
+          <AuthButton />
+        </AuthProvider>
 
         {/* Footer */}
         <p className="text-center text-xs text-gray-400 mt-6">

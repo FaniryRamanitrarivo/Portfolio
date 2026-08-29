@@ -6,40 +6,37 @@ import { Table } from "../ui/table";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Project } from "@/src/types/projects";
-import { useState, useEffect } from "react";
+import { startTransition, useOptimistic, useState } from "react";
 import Image from "next/image"; // Improved performance
 import { deleteProject } from "@/src/lib/actions/projects";
 
 export function ProjectTableBody({ projects }: { projects: Project[] }) {
-    const [projectsDatas, setProjectsDatas] = useState<Project[]>(projects);
     const [isDeleting, setIsDeleting] = useState<number | null>(null);
+    const [optimisticProjects, removeOptimisticProject] = useOptimistic(
+        projects,
+        (state, deletedId: number) => state.filter(p => p.id !== deletedId)
+    );
     const router = useRouter();
 
-    // Sync state if server data changes
-    useEffect(() => {
-        setProjectsDatas(projects);
-    }, [projects]);
-
-    async function handleDelete(id: number) {
+    function handleDelete(id: number) {
         if (!window.confirm("Are you sure you want to delete this project?")) return;
 
         setIsDeleting(id);
-        try {
-            await deleteProject(id);
-
-            // Optimistic update
-            setProjectsDatas(prev => prev.filter(p => p.id !== id));
-            toast.success("Project deleted successfully");
-
-            router.refresh();
-        } catch (error) {
-            toast.error("An error occurred during deletion");
-        } finally {
-            setIsDeleting(null);
-        }
+        startTransition(async () => {
+            removeOptimisticProject(id);
+            try {
+                await deleteProject(id);
+                toast.success("Project deleted successfully");
+                router.refresh();
+            } catch (error) {
+                toast.error("An error occurred during deletion");
+            } finally {
+                setIsDeleting(null);
+            }
+        });
     }
 
-    if (projects.length === 0) {
+    if (optimisticProjects.length === 0) {
         return (
             <Table.Body>
                 <Table.Row>
@@ -53,7 +50,7 @@ export function ProjectTableBody({ projects }: { projects: Project[] }) {
 
     return (
         <Table.Body>
-            {projectsDatas.map((project) => (
+            {optimisticProjects.map((project) => (
                 <Table.Row key={project.id} className={isDeleting === project.id ? "opacity-50 pointer-events-none" : ""}>
                     <Table.Col>
                         <div className="flex items-center space-x-3">
