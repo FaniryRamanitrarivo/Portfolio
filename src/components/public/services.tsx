@@ -1,49 +1,9 @@
-import { FiDatabase } from "react-icons/fi";
 import { MdDone } from "react-icons/md";
-import { FaArrowRight, FaCode } from "react-icons/fa6";
-import { RiSpeedUpLine } from "react-icons/ri";
+import { FaArrowRight } from "react-icons/fa6";
 import Link from "next/link";
 import SectionTitle from "../ui/section-title";
 import { Card } from "../ui/card";
-
-const services = [
-    {
-        title: "Data Extraction & Web Scraping",
-        icon: <FiDatabase />,
-        description: "Advanced JavaScript scraping solutions for complex websites. Large-scale data pipelines with automated data cleaning and normalization.",
-        lists: [
-            "Custom scraping scripts",
-            "API integration",
-            "Data validation",
-            "Scheduled automation"
-        ],
-        link: '#'
-    },
-    {
-        title: "Full-Stack Web Development",
-        icon: <FaCode />,
-        description: "Production-grade web applications built with modern technologies and best practices.",
-        lists: [
-            "React & Tailwind CSS",
-            "Laravel & Symfony",
-            "RESTful APIs",
-            "Database design",
-        ],
-        link: '#'
-    },
-    {
-        title: "Optimization & Maintenance",
-        icon: <RiSpeedUpLine />,
-        description: "Performance improvements and clean, maintainable architecture for existing systems.",
-        lists: [
-            "Code refactoring",
-            "Performance tuning",
-            "Bug fixes",
-            "Technical debt reduction",
-        ],
-        link: '#'
-    },
-]
+import { SERVICES } from "../../lib/front/constant";
 
 export default function Services() {
     return (
@@ -57,11 +17,11 @@ export default function Services() {
                     </p>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((service, index) =>
+                    {SERVICES.map((service, index) =>
                     (
                         <Card.Container key={index} className="border-neutral-200 hover:border-accent-300">
                             <Card.Icon>
-                                {service.icon}
+                                <service.icon />
                             </Card.Icon>
                             <Card.Title>
                                 {service.title}

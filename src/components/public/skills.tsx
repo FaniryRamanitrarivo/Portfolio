@@ -1,65 +1,6 @@
-import { FiDatabase, FiLayout, FiServer } from "react-icons/fi";
 import SectionTitle from "../ui/section-title";
 import { Card } from "../ui/card";
-import { GrDatabase } from "react-icons/gr";
-import { RiGlobalLine } from "react-icons/ri";
-
-const skills = [
-    {
-        isSpeciality: true,
-        title: "Primary Expertise — Data Extraction",
-        icon: <FiDatabase />,
-        description: "Building reliable, scalable data extraction systems that handle complex websites and deliver clean, structured data.",
-        lists: [
-            "Advanced JavaScript Scraping",
-            "Large-scale Pipelines",
-            "Data Parsing & Cleaning",
-            "Performance Optimization"
-        ],
-    },
-    {
-        title: "Frontend Development",
-        icon: <FiLayout />,
-        description: "Creating modern, responsive user interfaces with component-based architecture and utility-first styling.",
-        lists: [
-            "React",
-            "Tailwind CSS",
-            "SCSS",
-            "Component Architecture",
-        ],
-    },
-    {
-        title: "Backend Development",
-        icon: <FiServer />,
-        description: "Developing robust server-side applications with clean architecture and RESTful API design.",
-        lists: [
-            "Laravel",
-            "Symfony",
-            "REST API Design",
-            "Authentication",
-        ],
-    },
-    {
-        title: "Databases",
-        icon: <GrDatabase />,
-        description: "Designing efficient database schemas and optimizing queries for performance and scalability.",
-        lists: [
-            "PostgreSQL",
-            "MySQL",
-            "SQLite",
-            "Query Optimization",
-        ],
-    },
-    {
-        title: "Languages",
-        icon: <RiGlobalLine />,
-        description: "Communicating effectively with international clients and teams in professional settings.",
-        lists: [
-            "English (Professional)",
-            "French (Native)",
-        ],
-    },
-]
+import { SKILLS } from "../../lib/front/constant";
 
 export default function Skills() {
 
@@ -74,7 +15,7 @@ export default function Skills() {
                     </p>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {skills.map((skill, index) =>
+                    {SKILLS.map((skill, index) =>
                     (
                         <Card.Container key={index} className={`${skill.isSpeciality ? 'bg-gradient-to-br from-accent-50 to-accent-100/50 border-2 border-accent-300' : 'border-neutral-200 hover:border-accent-300'}`}>
                             {skill.isSpeciality && (
@@ -84,7 +25,7 @@ export default function Skills() {
                             )}
 
                             <Card.Icon parentClassName={`${skill.isSpeciality && 'bg-accent-600'}`} className={`${skill.isSpeciality && 'text-white'}`}>
-                                {skill.icon}
+                                <skill.icon />
                             </Card.Icon>
                             <Card.Title>
                                 {skill.title}
