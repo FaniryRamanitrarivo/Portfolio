@@ -1,4 +1,5 @@
 import { Project } from "@/src/types/projects";
+import Image from "next/image";
 import Link from "next/link";
 
 type ProjectViewProps = {
@@ -19,9 +20,11 @@ export default function ProjectView({ project }: ProjectViewProps ) {
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
             <div className="relative h-48 sm:h-64 overflow-hidden bg-neutral-100">
                 {project.image ? (
-                  <img
+                  <Image
                     alt={project.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
                     src={project.image}
                   />
                 ) : (

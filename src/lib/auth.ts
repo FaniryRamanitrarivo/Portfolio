@@ -1,6 +1,7 @@
 import { type NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import { env } from "@/src/lib/env"
 
 const allowedEmails = [
   "faniryram0@gmail.com",
@@ -10,8 +11,8 @@ const allowedEmails = [
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: env.GITHUB_ID,
+      clientSecret: env.GITHUB_SECRET,
       authorization: {
         params: {
           scope: "read:user user:email",
@@ -20,8 +21,8 @@ export const authOptions: NextAuthOptions = {
     }),
 
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
+      clientId: env.GOOGLE_ID,
+      clientSecret: env.GOOGLE_SECRET,
       authorization: {
         params: {
           prompt: "login", // 🔥 force le choix du compte
@@ -71,5 +72,5 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login", // 🔥 redirection propre
   },
 
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: env.NEXTAUTH_SECRET,
 }

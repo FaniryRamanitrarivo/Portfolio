@@ -3,7 +3,6 @@
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Table } from "../ui/table";
-import { api } from "@/src/lib/front/api/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Project } from "@/src/types/projects";

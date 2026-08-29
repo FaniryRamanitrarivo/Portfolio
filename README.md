@@ -1,8 +1,8 @@
 # 👨‍💻 Developer Portfolio & Back Office
 
-![Next.js](https://img.shields.io/badge/Next.js-13.6-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.3-teal)
+![Next.js](https://img.shields.io/badge/Next.js-16-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-teal)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 This is a **modern portfolio website** for a freelance/fullstack developer.  
@@ -16,15 +16,16 @@ It showcases projects with detailed information and includes a **back-office API
 ## 🧰 Tech Stack
 
 ### Frontend
-- **Framework:** Next.js 13 (App Router)
-- **UI:** React, Tailwind CSS, SCSS
+- **Framework:** Next.js 16 (App Router), React 19
+- **UI:** React, Tailwind CSS 4
 - **Design:** Clean, minimal, responsive (mobile-first)
 - **Features:** Server Components for performance, dynamic project listing
 
 ### Backend / API
-- **API:** Next.js API Routes (App Router)
-- **Database:** SQLite / PostgreSQL / MySQL (via Prisma ORM)
-- **ORM:** Prisma 7
+- **API:** Next.js API Routes (App Router) + Server Actions
+- **Database:** PostgreSQL (Neon), via Prisma ORM
+- **ORM:** Prisma 6
+- **Auth:** NextAuth (GitHub / Google), email allowlist
 - **Validation:** Zod
 - **Error handling:** Centralized via `safeHandler`
 
@@ -56,9 +57,10 @@ npm install
 
 ### Create `.env` file
 
+Copy `.env.example` to `.env` and fill in real values (database, NextAuth, OAuth providers, Resend):
+
 ```bash
-DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
-NEXT_PUBLIC_API_URL="http://localhost:3000"
+cp .env.example .env
 ```
 
 ### Generate Prisma client and run migrations

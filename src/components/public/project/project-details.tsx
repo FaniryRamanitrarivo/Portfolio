@@ -1,5 +1,6 @@
 // components/project/project-detail.tsx
 import type { Project } from "@/src/types/projects";
+import Image from "next/image";
 import Link from "next/link";
 import { FaRegLightbulb } from "react-icons/fa6";
 import { MdDone, MdErrorOutline } from "react-icons/md";
@@ -14,10 +15,13 @@ export default function ProjectDetail({ project }: { project: Project }) {
       </header>
       <div className="relative h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden mb-6 sm:mb-8">
         {project.image && (
-          <img
+          <Image
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover object-top"
+            fill
+            sizes="(min-width: 1024px) 896px, 100vw"
+            priority
+            className="object-cover object-top"
           />
         )}
       </div>
