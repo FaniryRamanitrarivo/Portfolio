@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { env } from "@/src/lib/env";
 
 /**
  * Middleware pour Next.js 16 (anciennement proxy.ts)
@@ -7,6 +8,10 @@ import { getToken } from "next-auth/jwt";
  * Updated pour Next.js 16 - remplace le système withAuth de next-auth
  */
 export async function middleware(request: NextRequest) {
+  if (env.AUTH_DISABLED) {
+    return NextResponse.next();
+  }
+
   const token = await getToken({ req: request });
 
   // Les routes protégées

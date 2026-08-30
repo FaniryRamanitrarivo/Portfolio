@@ -39,3 +39,37 @@ model Project {
   @@index([popular])
   @@index([createdAt])
 }
+
+/**
+ * Modèle Service - "Services I Offer" homepage section
+ */
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  icon        String
+  description String
+  lists       Json     @default("[]")
+  link        String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([order])
+}
+
+/**
+ * Modèle Skill - "Skills & Technologies" homepage section
+ */
+model Skill {
+  id           Int      @id @default(autoincrement())
+  title        String
+  icon         String
+  description  String
+  lists        Json     @default("[]")
+  isSpeciality Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([order])
+}

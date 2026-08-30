@@ -48,4 +48,24 @@ function TextArea({
     )
 }
 
-export { Input, TextArea };
+function Checkbox({
+    name = "",
+    label = "",
+    className = "",
+    ...props
+}: InputProps) {
+    return (
+        <label htmlFor={name} className="flex items-center gap-2 my-2 cursor-pointer w-fit">
+            <input
+                type="checkbox"
+                className={`h-4 w-4 rounded border-neutral-300 text-accent-600 focus:ring-accent-500 ${className}`}
+                name={name}
+                id={name}
+                {...props}
+            />
+            {label && (<span className="text-sm font-medium text-neutral-700">{label}</span>)}
+        </label>
+    )
+}
+
+export { Input, TextArea, Checkbox };

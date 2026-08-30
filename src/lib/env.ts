@@ -17,6 +17,15 @@ const envSchema = z.object({
 
   RESEND_API_KEY: z.string().optional().default(""),
   CONTACT_EMAIL: z.string().optional().default(""),
+
+  // Temporary local-dev switch to bypass NextAuth entirely (see
+  // src/middleware.ts, src/app/admin/page.tsx, src/lib/auth-guard.ts).
+  // Must be "false" (the default) anywhere auth actually matters.
+  AUTH_DISABLED: z
+    .string()
+    .optional()
+    .default("false")
+    .transform((v) => v === "true"),
 });
 
 function loadEnv() {
