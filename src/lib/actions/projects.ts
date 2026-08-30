@@ -11,7 +11,7 @@ import { projectSchema, projectUpdateSchema } from "@/src/lib/shared/project.sch
  * Appelle directement le service serveur (sans fetch HTTP)
  */
 export async function createProject(
-  data: Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">
+  data: Omit<ProjectDTO, "id" | "createdAt" | "updatedAt" | "order">
 ) {
   // Server Actions are network-callable regardless of client-side (RHF)
   // validation, so re-validate here — this is the one place both the admin
@@ -39,7 +39,7 @@ export async function createProject(
  */
 export async function updateProject(
   id: number,
-  data: Partial<Omit<ProjectDTO, "id" | "createdAt" | "updatedAt">>
+  data: Partial<Omit<ProjectDTO, "id" | "createdAt" | "updatedAt" | "order">>
 ) {
   const parsed = projectUpdateSchema.safeParse(data);
   if (!parsed.success) {
@@ -87,5 +87,37 @@ export async function getProjectById(id: number) {
       throw new Error(error.message);
     }
     throw new Error("Failed to fetch project");
+  }
+}
+
+/**
+ * Server Action pour réordonner le set de projets mis en avant
+ * (drag and drop dans la zone "Featured" de l'admin)
+ */
+export async function reorderFeaturedProjects(ids: number[]) {
+  try {
+    await projectServiceServer.reorderFeaturedProjects(ids);
+    revalidateTag("projects", "max");
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to reorder featured projects");
+  }
+}
+
+/**
+ * Server Action pour ajouter/retirer un projet du set mis en avant
+ */
+export async function setProjectFeatured(id: number, featured: boolean) {
+  try {
+    const result = await projectServiceServer.setProjectFeatured(id, featured);
+    revalidateTag("projects", "max");
+    return result;
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw new Error(error.message);
+    }
+    throw new Error("Failed to update featured status");
   }
 }

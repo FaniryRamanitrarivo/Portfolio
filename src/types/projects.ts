@@ -20,6 +20,8 @@ export type ProjectDTO = {
   solutions: string[];
   technologies: string[];
   popular: boolean;
+  order: number;
+  comingSoon: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

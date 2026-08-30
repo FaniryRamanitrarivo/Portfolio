@@ -27,6 +27,8 @@ export const projectSchema = z.object({
   solutions: z.array(nonEmptyString).min(1),
   technologies: z.array(nonEmptyString).min(1),
   popular: z.boolean().default(false),
+  order: z.number().int().default(0),
+  comingSoon: z.boolean().default(false),
 });
 
 export const projectUpdateSchema = projectSchema.partial();

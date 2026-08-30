@@ -5,7 +5,7 @@ import ProjectView from "./project/project-view";
 
 export default async function Project() {
   try {
-    const projects = await projectServiceServer.getLatestProjects(6);
+    const projects = await projectServiceServer.getHomepageProjects(6);
 
     return (
       <section id="projects" className="py-16 sm:py-24 bg-neutral-50">

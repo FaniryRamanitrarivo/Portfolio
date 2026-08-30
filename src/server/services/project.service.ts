@@ -14,24 +14,6 @@ import {
 
 export class ProjectServiceServer {
   /**
-   * Récupère les projets les plus récents (pour la page d'accueil)
-   */
-  async getLatestProjects(limit: number = 6): Promise<ProjectDTO[]> {
-    try {
-      const projects = await ProjectRepository.findMany({
-        limit,
-        order: "desc",
-      });
-      return this.mapToDTO(projects);
-    } catch (error) {
-      throw new AppError(
-        "Failed to fetch latest projects",
-        500
-      );
-    }
-  }
-
-  /**
    * Récupère un projet par ID avec gestion d'erreurs
    */
   async getProjectById(id: number): Promise<ProjectDTO> {
@@ -54,18 +36,97 @@ export class ProjectServiceServer {
   }
 
   /**
-   * Récupère les projets populaires
+   * Récupère les projets mis en avant (admin: gestion du set featured),
+   * triés par ordre d'affichage (drag-and-drop), au plus `limit`.
    */
-  async getPopularProjects(limit: number = 10): Promise<ProjectDTO[]> {
+  async getFeaturedProjects(limit: number = 6): Promise<ProjectDTO[]> {
     try {
-      const projects = await ProjectRepository.findMany({
-        limit,
-        popular: true,
-        order: "desc",
-      });
+      const projects = await ProjectRepository.findFeatured(limit);
       return this.mapToDTO(projects);
     } catch (error) {
-      throw new AppError("Failed to fetch popular projects", 500);
+      throw new AppError("Failed to fetch featured projects", 500);
+    }
+  }
+
+  /**
+   * Récupère les projets non mis en avant (admin: reste de la liste),
+   * triés par date de création décroissante.
+   */
+  async getNonFeaturedProjects(): Promise<ProjectDTO[]> {
+    try {
+      const projects = await ProjectRepository.findNonFeatured();
+      return this.mapToDTO(projects);
+    } catch (error) {
+      throw new AppError("Failed to fetch projects", 500);
+    }
+  }
+
+  /**
+   * Récupère les projets pour la homepage : le set mis en avant (dans
+   * l'ordre choisi en admin), complété si besoin par les projets les plus
+   * récents pour toujours afficher jusqu'à `limit` projets.
+   */
+  async getHomepageProjects(limit: number = 6): Promise<ProjectDTO[]> {
+    try {
+      const featured = await ProjectRepository.findFeatured(limit);
+      if (featured.length >= limit) {
+        return this.mapToDTO(featured);
+      }
+
+      const featuredIds = new Set(featured.map((p) => p.id));
+      const recent = await ProjectRepository.findMany({
+        limit,
+        order: "desc",
+      });
+      const padding = recent
+        .filter((p) => !featuredIds.has(p.id))
+        .slice(0, limit - featured.length);
+
+      return this.mapToDTO([...featured, ...padding]);
+    } catch (error) {
+      throw new AppError("Failed to fetch homepage projects", 500);
+    }
+  }
+
+  /**
+   * Remplace le set de projets mis en avant par la liste d'IDs fournie
+   * (drag-and-drop dans l'admin) : réordonne, et retire du set tout ID
+   * précédemment mis en avant absent de la liste. Plafonné à 6.
+   */
+  async reorderFeaturedProjects(ids: number[]): Promise<void> {
+    if (ids.length > 6) {
+      throw new AppError("Maximum of 6 featured projects", 400);
+    }
+
+    try {
+      await ProjectRepository.replaceFeatured(ids);
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError("Failed to reorder featured projects", 500);
+    }
+  }
+
+  /**
+   * Ajoute ou retire un projet du set mis en avant (bouton "star" ou
+   * drag hors de la zone featured). Plafonné à 6.
+   */
+  async setProjectFeatured(id: number, featured: boolean): Promise<ProjectDTO> {
+    await this.getProjectById(id);
+
+    if (featured) {
+      const current = await ProjectRepository.findFeatured();
+      const alreadyFeatured = current.some((p) => p.id === id);
+      if (!alreadyFeatured && current.length >= 6) {
+        throw new AppError("Maximum of 6 featured projects", 400);
+      }
+    }
+
+    try {
+      const project = await ProjectRepository.setFeatured(id, featured);
+      return this.mapToDTO(project);
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError("Failed to update featured status", 500);
     }
   }
 
@@ -118,6 +179,7 @@ export class ProjectServiceServer {
         solutions: data.solutions || Prisma.JsonNull,
         technologies: data.technologies || Prisma.JsonNull,
         popular: data.popular || false,
+        comingSoon: data.comingSoon || false,
       };
 
       const project = await ProjectRepository.create(normalizedData);
@@ -198,6 +260,8 @@ export class ProjectServiceServer {
         ? project.technologies
         : [],
       popular: project.popular,
+      order: project.order,
+      comingSoon: project.comingSoon,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
     } as ProjectDTO;

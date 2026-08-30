@@ -37,6 +37,11 @@ export default function ProjectView({ project, priority = false }: ProjectViewPr
                 <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-neutral-900 rounded-full text-sm font-medium">{project.category}</span>
                 </div>
+                {project.comingSoon && (
+                    <div className="absolute top-4 right-4">
+                        <span className="px-3 py-1 bg-amber-500 text-white rounded-full text-sm font-medium">Coming Soon</span>
+                    </div>
+                )}
             </div>
             <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-neutral-900 mb-3 group-hover:text-accent-600 transition-colors">{ project.title }</h3>

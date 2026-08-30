@@ -34,5 +34,6 @@ export default function denormalizeProjectToForm(
     technologies: denormalizeArray(project.technologies),
 
     popular: project.popular ?? false,
+    comingSoon: project.comingSoon ?? false,
   };
 }

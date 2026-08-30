@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import MultipleInput from "../ui/mutliple-input";
-import { Input, TextArea } from "../ui/input";
+import { Checkbox, Input, TextArea } from "../ui/input";
 
 import { projectFormSchema } from "@/src/lib/back/validation/project-form.schema";
 
@@ -44,6 +44,7 @@ export function ProjectForm({
             github: "",
             link: "",
             popular: false,
+            comingSoon: false,
 
             responsibilities: [],
             keyResults: [],
@@ -251,6 +252,11 @@ export function ProjectForm({
                                 </p>
                             )}
                         </div>
+
+                        <Checkbox
+                            label="Coming soon (hides GitHub / Live Demo links on the public site)"
+                            {...register("comingSoon")}
+                        />
                     </div>
                 </div>
 

@@ -15,7 +15,7 @@ function normalizeUrl(url?: string): string | undefined {
 }
 
 // Normalise FormSchema → Project (prêt à envoyer à l’API ou DB)
-export default function normalizeProjectForm(data: ProjectFormSchema): Omit<Project, "id" | "createdAt" | "updatedAt"> {
+export default function normalizeProjectForm(data: ProjectFormSchema): Omit<Project, "id" | "createdAt" | "updatedAt" | "order"> {
   return {
     title: data.title,
     role: data.role,
@@ -36,5 +36,6 @@ export default function normalizeProjectForm(data: ProjectFormSchema): Omit<Proj
     technologies: normalizeArray(data.technologies),
 
     popular: data.popular ?? false,
+    comingSoon: data.comingSoon ?? false,
   };
 }

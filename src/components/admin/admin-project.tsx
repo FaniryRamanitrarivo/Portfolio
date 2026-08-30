@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { MdAdd } from "react-icons/md";
-import { Table } from "../ui/table";
 import { projectServiceServer } from "@/src/server/services/project.service";
-import { ProjectTableBody } from "./project-table-body";
+import { ProjectManager } from "./project-manager";
 
 export default async function AdminProject() {
   try {
-    const projects = await projectServiceServer.getAllProjects();
+    const [featured, rest] = await Promise.all([
+      projectServiceServer.getFeaturedProjects(6),
+      projectServiceServer.getNonFeaturedProjects(),
+    ]);
 
     return (
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -24,23 +26,7 @@ export default async function AdminProject() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden mt-8">
-          <div className="overflow-x-auto">
-            <Table.Container>
-              <Table.Header>
-                <Table.Row>
-                  <Table.Title>Project</Table.Title>
-                  <Table.Title>Client</Table.Title>
-                  <Table.Title>Role</Table.Title>
-                  <Table.Title>Duration</Table.Title>
-                  <Table.Title>Category</Table.Title>
-                  <Table.Title className="text-center">Action</Table.Title>
-                </Table.Row>
-              </Table.Header>
-              <ProjectTableBody projects={projects || []} />
-            </Table.Container>
-          </div>
-        </div>
+        <ProjectManager featured={featured} rest={rest} />
       </div>
     );
   } catch (error) {

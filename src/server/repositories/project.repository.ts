@@ -108,4 +108,85 @@ export class ProjectRepository {
   static async count(): Promise<number> {
     return prisma.project.count();
   }
+
+  /**
+   * Récupère les projets mis en avant (popular), triés par ordre d'affichage
+   */
+  static async findFeatured(limit?: number): Promise<Project[]> {
+    return prisma.project.findMany({
+      where: { popular: true },
+      orderBy: { order: "asc" },
+      take: limit,
+    });
+  }
+
+  /**
+   * Récupère les projets non mis en avant, triés par date de création décroissante
+   */
+  static async findNonFeatured(): Promise<Project[]> {
+    return prisma.project.findMany({
+      where: { popular: false },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  /**
+   * Remplace intégralement le set de projets mis en avant par la liste d'IDs
+   * fournie (dans cet ordre) : marque ces IDs popular=true avec un `order`
+   * séquentiel, et retire du set tout ID précédemment popular absent de la liste.
+   */
+  static async replaceFeatured(ids: number[]): Promise<void> {
+    const current = await prisma.project.findMany({
+      where: { popular: true },
+      select: { id: true },
+    });
+    const toUnfeature = current
+      .map((p) => p.id)
+      .filter((id) => !ids.includes(id));
+
+    await prisma.$transaction([
+      ...toUnfeature.map((id) =>
+        prisma.project.update({ where: { id }, data: { popular: false, order: 0 } })
+      ),
+      ...ids.map((id, index) =>
+        prisma.project.update({
+          where: { id },
+          data: { popular: true, order: index },
+        })
+      ),
+    ]);
+  }
+
+  /**
+   * Ajoute (en fin de liste) ou retire un projet du set mis en avant.
+   * Au retrait, recompacte le `order` du reste du set pour éviter les trous.
+   */
+  static async setFeatured(id: number, featured: boolean): Promise<Project> {
+    if (featured) {
+      const count = await prisma.project.count({ where: { popular: true } });
+      return prisma.project.update({
+        where: { id },
+        data: { popular: true, order: count },
+      });
+    }
+
+    const project = await prisma.project.update({
+      where: { id },
+      data: { popular: false, order: 0 },
+    });
+
+    const remaining = await prisma.project.findMany({
+      where: { popular: true },
+      orderBy: { order: "asc" },
+      select: { id: true },
+    });
+
+    await prisma.$transaction(
+      remaining.map((p, index) =>
+        prisma.project.update({ where: { id: p.id }, data: { order: index } })
+      )
+    );
+
+    return project;
+  }
 }
