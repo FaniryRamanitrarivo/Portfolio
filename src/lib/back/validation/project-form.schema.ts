@@ -12,9 +12,15 @@ const itemSchema = z.object({
 
 const itemArray = z.array(itemSchema);
 
+// Empty string means "not filled in yet" in the form (fields default to
+// "", not undefined/null), but a non-empty value must be a valid URL —
+// matches the shared schema's github/link validation without blocking an
+// untouched field.
+const optionalUrlField = z.union([z.literal(""), z.string().trim().url()]).optional();
+
 // Extends the shared Project schema, only overriding what the admin form
 // UI needs differently: array fields as { value }[] for useFieldArray, and
-// client/github/link left as plain optional strings (no URL format check).
+// client left as a plain optional string (no format check).
 // `order` is not user-editable (drag-and-drop in the featured list only).
 export const projectFormSchema = projectSchema.omit({ order: true }).extend({
     client: z.string().optional(),
@@ -25,9 +31,9 @@ export const projectFormSchema = projectSchema.omit({ order: true }).extend({
 
     image: z.string().optional(),
 
-    github: z.string().optional(),
+    github: optionalUrlField,
 
-    link: z.string().optional(),
+    link: optionalUrlField,
 
     responsibilities: itemArray,
 

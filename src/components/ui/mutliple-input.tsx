@@ -66,7 +66,7 @@ export default function MultipleInput<
             )}
 
             {Array.isArray(errors[name]) &&
-                (errors[name] as any[]).map((err, i) =>
+                (errors[name] as Array<{ value?: { message?: string } }>).map((err, i) =>
                     err?.value?.message ? (
                         <p key={i} className="text-red-500 text-sm mt-1">
                             {title} #{i + 1}: {err.value.message}

@@ -9,6 +9,7 @@ import { z } from "zod";
  * Adding/renaming a scalar field only needs to happen here.
  */
 const nonEmptyString = z.string().trim().min(1);
+const optionalUrl = z.string().trim().url().nullable().optional();
 
 export const projectSchema = z.object({
   title: nonEmptyString,
@@ -19,8 +20,8 @@ export const projectSchema = z.object({
   category: z.string().trim().min(1).nullable().optional(),
   description: z.string().trim().min(1).nullable().optional(),
   image: z.string().trim().min(1).nullable().optional(),
-  github: z.string().nullable().optional(),
-  link: z.string().nullable().optional(),
+  github: optionalUrl,
+  link: optionalUrl,
   responsibilities: z.array(nonEmptyString).default([]),
   keyResults: z.array(nonEmptyString).default([]),
   challenges: z.array(nonEmptyString).default([]),

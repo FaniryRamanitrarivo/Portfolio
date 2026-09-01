@@ -65,10 +65,12 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  let project;
   try {
-    const project = await projectServiceServer.getProjectById(projectId);
-    return <ProjectDetail project={project} />;
-  } catch (error) {
+    project = await projectServiceServer.getProjectById(projectId);
+  } catch {
     notFound();
   }
+
+  return <ProjectDetail project={project} />;
 }

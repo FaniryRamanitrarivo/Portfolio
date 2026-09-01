@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import Button from "@/src/components/ui/button";
 import { getProjectById, updateProject } from "@/src/lib/actions/projects";
 import { useEffect, useState } from "react";
-import type { ProjectDTO } from "@/src/types/projects";
 import denormalizeProjectToForm from "@/src/lib/front/forms/denormalizeProjectForm";
 import normalizeProjectForm from "@/src/lib/front/forms/normalizeProjectFrom";
 

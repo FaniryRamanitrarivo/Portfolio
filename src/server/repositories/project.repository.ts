@@ -6,7 +6,6 @@
 
 import { Prisma, Project } from "@prisma/client";
 import { prisma } from "@/src/lib/back/db";
-import { AppError } from "@/src/lib/back/errors";
 
 export interface ProjectFilters {
   start?: number;

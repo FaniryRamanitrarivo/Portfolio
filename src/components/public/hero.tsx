@@ -45,7 +45,7 @@ export default function Hero() {
           {/* Left */}
           <div className="space-y-8 text-center lg:text-start">
 
-            <h3 className="text-3xl 3xl:text-base font-medium text-accent-600 tracking-wide" >Hi, I'm Faniry Ramanitrarivo</h3>
+            <h3 className="text-3xl 3xl:text-base font-medium text-accent-600 tracking-wide" >Hi, I&apos;m Faniry Ramanitrarivo</h3>
             <h1 className="font-display font-bold leading-tight tracking-wide">
               <span className="block text-4xl lg:text-7xl
                 bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-600
@@ -134,14 +134,14 @@ export default function Hero() {
                     </div>
 
                     <div className="pl-4 text-neutral-600">
-                      name: <span className="text-green-600">'Faniry'</span>,
+                      name: <span className="text-green-600">&apos;Faniry&apos;</span>,
                     </div>
 
                     <div className="pl-4 text-neutral-600">skills: [</div>
-                    <div className="pl-8 text-green-600">'Web Data Scraping',</div>
-                    <div className="pl-8 text-green-600">'Data Collection',</div>
-                    <div className="pl-8 text-green-600">'Full-Stack Dev',</div>
-                    <div className="pl-8 text-green-600">'React &amp; Laravel / Symfony'</div>
+                    <div className="pl-8 text-green-600">&apos;Web Data Scraping&apos;,</div>
+                    <div className="pl-8 text-green-600">&apos;Data Collection&apos;,</div>
+                    <div className="pl-8 text-green-600">&apos;Full-Stack Dev&apos;,</div>
+                    <div className="pl-8 text-green-600">&apos;React &amp; Laravel / Symfony&apos;</div>
                     <div className="pl-4 text-neutral-600">],</div>
 
                     <div className="pl-4 text-neutral-600">

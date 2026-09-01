@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type MouseEvent as ReactMouseEvent } from "react";
 import Logo from "../ui/logo";
 import { CustomLink, NavigationLink } from "../ui/link";
 import { FaArrowRight } from "react-icons/fa6";
@@ -17,7 +17,7 @@ export default function Navbar() {
 
     const navRef = useRef<HTMLDivElement | null>(null);
 
-    const handleClick = (e: any) => {
+    const handleClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
         scrollToSection(e);
         setIsOpen(false);
     };

@@ -17,6 +17,7 @@ export default function denormalizeProjectToForm(
 ): ProjectFormSchema {
   return {
     title: project.title ?? "",
+    client: project.client ?? "",
     role: project.role ?? "",
     duration: project.duration ?? "",
     overview: project.overview ?? "",

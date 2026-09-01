@@ -17,7 +17,7 @@ export default function Contact() {
                 <div className="text-center mb-12 sm:mb-16">
                     <SectionTitle name="Get In Touch" title="Let's Build Something Amazing" />
                     <p className="mt-4 text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto px-4">
-                        Have a project in mind? Let's discuss how I can help bring your ideas to life
+                        Have a project in mind? Let&apos;s discuss how I can help bring your ideas to life
                     </p>
                 </div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
@@ -27,7 +27,7 @@ export default function Contact() {
                             Quick Response Guaranteed
                         </h3>
                         <p className="mt-4 text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto px-4">
-                            Have a project in mind? Let's discuss how I can help bring your ideas to life
+                            Have a project in mind? Let&apos;s discuss how I can help bring your ideas to life
                         </p>
                         <div className="space-y-4">
                             <SocialLink

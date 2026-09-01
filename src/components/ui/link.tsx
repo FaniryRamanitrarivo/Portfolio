@@ -57,7 +57,7 @@ function SocialLink({
     ...props
   }: Props) {
     return(
-      <Link href={href} className="flex space-x-4 p-4 bg-white rounded-xl border border-neutral-200 hover:border-accent-300 transition-all duration-300 hover:shadow-md cursor-pointer group">
+      <Link href={href} className="flex space-x-4 p-4 bg-white rounded-xl border border-neutral-200 hover:border-accent-300 transition-all duration-300 hover:shadow-md cursor-pointer group" {...props}>
           <div className="w-12 h-12 flex items-center justify-center bg-accent-100 rounded-xl group-hover:bg-accent-600 transition-colors">
             {cloneElement(icon, {
                 className: `text-2xl text-accent-600 group-hover:text-white transition-colors ${className ?? ''}`,
@@ -81,7 +81,7 @@ function NavigationLink({
   
   return(
     <li className={`
-      relative capitalize px-3 lg:px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap ${isActive ? 'text-accent-600': 'text-neutral-700'}
+      relative capitalize px-3 lg:px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap ${isActive ? 'text-accent-600': 'text-neutral-700'} ${className}
       `}>
         <Link href={href} {...props}>{label}</Link>
         <span

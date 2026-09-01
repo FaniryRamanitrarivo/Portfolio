@@ -43,7 +43,7 @@ export class ProjectServiceServer {
     try {
       const projects = await ProjectRepository.findFeatured(limit);
       return this.mapToDTO(projects);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch featured projects", 500);
     }
   }
@@ -56,7 +56,7 @@ export class ProjectServiceServer {
     try {
       const projects = await ProjectRepository.findNonFeatured();
       return this.mapToDTO(projects);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch projects", 500);
     }
   }
@@ -83,7 +83,7 @@ export class ProjectServiceServer {
         .slice(0, limit - featured.length);
 
       return this.mapToDTO([...featured, ...padding]);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch homepage projects", 500);
     }
   }
@@ -137,7 +137,7 @@ export class ProjectServiceServer {
     try {
       const projects = await ProjectRepository.findMany(filters);
       return this.mapToDTO(projects);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch projects", 500);
     }
   }
@@ -149,7 +149,7 @@ export class ProjectServiceServer {
     try {
       const projects = await ProjectRepository.findAll();
       return this.mapToDTO(projects);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch projects", 500);
     }
   }
@@ -184,7 +184,7 @@ export class ProjectServiceServer {
 
       const project = await ProjectRepository.create(normalizedData);
       return this.mapToDTO(project);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to create project", 500);
     }
   }
@@ -202,7 +202,7 @@ export class ProjectServiceServer {
     try {
       const project = await ProjectRepository.update(id, data);
       return this.mapToDTO(project);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to update project", 500);
     }
   }
@@ -216,7 +216,7 @@ export class ProjectServiceServer {
 
     try {
       await ProjectRepository.delete(id);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to delete project", 500);
     }
   }
@@ -225,9 +225,11 @@ export class ProjectServiceServer {
    * Mappe les projets Prisma vers les DTOs (Data Transfer Objects)
    * Utile pour contrôler exactement ce qu'on expose
    */
-  private mapToDTO(projects: any[]): ProjectDTO[];
-  private mapToDTO(project: any): ProjectDTO;
-  private mapToDTO(projectsOrProject: any | any[]): ProjectDTO | ProjectDTO[] {
+  private mapToDTO(projects: Prisma.ProjectGetPayload<Record<string, never>>[]): ProjectDTO[];
+  private mapToDTO(project: Prisma.ProjectGetPayload<Record<string, never>>): ProjectDTO;
+  private mapToDTO(
+    projectsOrProject: Prisma.ProjectGetPayload<Record<string, never>> | Prisma.ProjectGetPayload<Record<string, never>>[]
+  ): ProjectDTO | ProjectDTO[] {
     if (Array.isArray(projectsOrProject)) {
       return projectsOrProject.map((project) => this.mapToDTO(project));
     }

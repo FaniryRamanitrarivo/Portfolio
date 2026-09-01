@@ -11,11 +11,6 @@ type CardChildrenProps = {
     className?: string;
 };
 
-type CardLinkProps = {
-    link: string;
-    className?: string
-}
-
 // function CardContainer({ children }: CardChildrenProps) {
 //     return(
 //         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -18,7 +18,7 @@ export class ServiceServiceServer {
     try {
       const services = await ServiceRepository.findAll();
       return this.mapToDTO(services);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch services", 500);
     }
   }
@@ -64,7 +64,7 @@ export class ServiceServiceServer {
       });
 
       return this.mapToDTO(service);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to create service", 500);
     }
   }
@@ -82,7 +82,7 @@ export class ServiceServiceServer {
     try {
       const service = await ServiceRepository.update(id, data);
       return this.mapToDTO(service);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to update service", 500);
     }
   }
@@ -96,7 +96,7 @@ export class ServiceServiceServer {
 
     try {
       await ServiceRepository.delete(id);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to delete service", 500);
     }
   }
@@ -107,7 +107,7 @@ export class ServiceServiceServer {
   async reorderServices(ids: number[]): Promise<void> {
     try {
       await ServiceRepository.reorder(ids);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to reorder services", 500);
     }
   }

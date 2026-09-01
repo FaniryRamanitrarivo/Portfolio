@@ -3,15 +3,9 @@ import { SkillList } from "@/src/components/admin/skill-list";
 import { skillServiceServer } from "@/src/server/services/skill.service";
 
 export default async function AdminSkillsPage() {
+  let skills;
   try {
-    const skills = await skillServiceServer.getAllSkills();
-
-    return (
-      <>
-        <AdminNavbar />
-        <SkillList skills={skills} />
-      </>
-    );
+    skills = await skillServiceServer.getAllSkills();
   } catch (error) {
     console.error("Error loading admin skills:", error);
     return (
@@ -23,4 +17,11 @@ export default async function AdminSkillsPage() {
       </>
     );
   }
+
+  return (
+    <>
+      <AdminNavbar />
+      <SkillList skills={skills} />
+    </>
+  );
 }

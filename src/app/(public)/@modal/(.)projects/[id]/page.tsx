@@ -16,15 +16,16 @@ export default async function ProjectModalPage({ params }: Props) {
     notFound();
   }
 
+  let project;
   try {
-    const project = await projectServiceServer.getProjectById(projectId);
-
-    return (
-      <ProjectModal>
-        <ProjectDetail project={project} />
-      </ProjectModal>
-    );
-  } catch (error) {
+    project = await projectServiceServer.getProjectById(projectId);
+  } catch {
     notFound();
   }
+
+  return (
+    <ProjectModal>
+      <ProjectDetail project={project} />
+    </ProjectModal>
+  );
 }

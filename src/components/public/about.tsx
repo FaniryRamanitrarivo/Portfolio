@@ -27,7 +27,7 @@ export default function About() {
                     <div className="lg:col-span-3 space-y-6">
                         <SectionTitle name="About Me" title="Turning Complex Data Challenges Into Simple Solutions" />
                         <div className="space-y-4 text-justify text-base sm:text-lg text-neutral-600 leading-relaxed">
-                            <p>I'm a <strong className="bg-accent-100 text-accent-900 px-2 py-1 rounded">freelance developer</strong> specializing in web data scraping and full-stack development. With over 2 years of experience, I help businesses collect reliable data from websites and build robust, scalable web applications.</p>
+                            <p>I&apos;m a <strong className="bg-accent-100 text-accent-900 px-2 py-1 rounded">freelance developer</strong> specializing in web data scraping and full-stack development. With over 2 years of experience, I help businesses collect reliable data from websites and build robust, scalable web applications.</p>
                             <p>My expertise lies in <strong className="bg-accent-100 text-accent-900 px-2 py-1 rounded">advanced scraping solutions</strong>, creating large-scale data collection pipelines, and developing production-grade applications using modern technologies like React, Laravel, and Symfony.</p>
                             <p>Whether you need to collect data from complex websites, build a custom web application, or optimize your existing systems, I deliver clean, maintainable solutions that drive real business value.</p>
                         </div>

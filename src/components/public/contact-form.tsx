@@ -2,8 +2,7 @@
 
 import { Input, TextArea } from "../ui/input";
 import Button from "../ui/button";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { ContactFormData, contactSchema } from "@/src/lib/back/validation/contact.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -11,18 +10,17 @@ import { FaPaperPlane } from "react-icons/fa6";
 
 export default function ContactForm() {
 
-    const [serverMessage, setServerMessage] = useState<string | null>(null);
     const {
         register,
         handleSubmit,
         reset,
-        watch,
+        control,
         formState: { errors, isSubmitting },
     } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
     })
 
-    const messageValue = watch("message") || "";
+    const messageValue = useWatch({ control, name: "message" }) || "";
     const characterCount = {
         current: messageValue.length,
         max: 500,
@@ -30,8 +28,6 @@ export default function ContactForm() {
     }
 
     const onSubmit = async (data: ContactFormData) => {
-        setServerMessage(null)
-
         const res = await fetch("/api/contact", {
         method: "POST",
         body: JSON.stringify(data),
@@ -40,12 +36,10 @@ export default function ContactForm() {
 
         if (!res.ok) {
             toast.error("An error occured during the process. Please try again");
-            setServerMessage("Une erreur est survenue.")
             return
         }
 
         toast.success("Message sent successfully");
-        setServerMessage("Message envoyé avec succès ✅")
         reset()
     }
 

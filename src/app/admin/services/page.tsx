@@ -3,15 +3,9 @@ import { ServiceList } from "@/src/components/admin/service-list";
 import { serviceServiceServer } from "@/src/server/services/service.service";
 
 export default async function AdminServicesPage() {
+  let services;
   try {
-    const services = await serviceServiceServer.getAllServices();
-
-    return (
-      <>
-        <AdminNavbar />
-        <ServiceList services={services} />
-      </>
-    );
+    services = await serviceServiceServer.getAllServices();
   } catch (error) {
     console.error("Error loading admin services:", error);
     return (
@@ -23,4 +17,11 @@ export default async function AdminServicesPage() {
       </>
     );
   }
+
+  return (
+    <>
+      <AdminNavbar />
+      <ServiceList services={services} />
+    </>
+  );
 }

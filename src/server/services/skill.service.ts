@@ -18,7 +18,7 @@ export class SkillServiceServer {
     try {
       const skills = await SkillRepository.findAll();
       return this.mapToDTO(skills);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to fetch skills", 500);
     }
   }
@@ -64,7 +64,7 @@ export class SkillServiceServer {
       });
 
       return this.mapToDTO(skill);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to create skill", 500);
     }
   }
@@ -82,7 +82,7 @@ export class SkillServiceServer {
     try {
       const skill = await SkillRepository.update(id, data);
       return this.mapToDTO(skill);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to update skill", 500);
     }
   }
@@ -96,7 +96,7 @@ export class SkillServiceServer {
 
     try {
       await SkillRepository.delete(id);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to delete skill", 500);
     }
   }
@@ -107,7 +107,7 @@ export class SkillServiceServer {
   async reorderSkills(ids: number[]): Promise<void> {
     try {
       await SkillRepository.reorder(ids);
-    } catch (error) {
+    } catch {
       throw new AppError("Failed to reorder skills", 500);
     }
   }
