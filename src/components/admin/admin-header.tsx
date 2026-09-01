@@ -11,6 +11,8 @@ const NAV_LINKS = [
     { href: "/admin", label: "Projects" },
     { href: "/admin/services", label: "Services" },
     { href: "/admin/skills", label: "Skills" },
+    { href: "/admin/education", label: "Education" },
+    { href: "/admin/experience", label: "Experience" },
 ];
 
 export default function AdminNavbar() {

@@ -76,3 +76,41 @@ model Skill {
 
   @@index([order])
 }
+
+/**
+ * Modèle Education - parcours académique, page /about
+ */
+model Education {
+  id          Int       @id @default(autoincrement())
+  degree      String
+  school      String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  highlights  Json      @default("[]")
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([order])
+}
+
+/**
+ * Modèle Experience - parcours professionnel, page /about
+ */
+model Experience {
+  id          Int       @id @default(autoincrement())
+  role        String
+  company     String
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  highlights  Json      @default("[]")
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([order])
+}

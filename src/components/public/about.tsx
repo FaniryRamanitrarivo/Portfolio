@@ -6,9 +6,6 @@ import Link from "next/link";
 
 export default function About() {
 
-
-    const linkedin = 'https://www.linkedin.com/in/faniriniaina-andry-ramanitrarivo-59b47b249';
-
     return (
         <section id="about" className="py-16 sm:py-24 lg:py-32 bg-white relative overflow-hidden">
             <div className="absolute top-20 right-0 w-96 h-96 bg-accent-100/30 rounded-full blur-3xl"></div>
@@ -32,7 +29,7 @@ export default function About() {
                             <p>Whether you need to collect data from complex websites, build a custom web application, or optimize your existing systems, I deliver clean, maintainable solutions that drive real business value.</p>
                         </div>
                         <div className="mt-6 flex items-center text-accent-600 font-medium group-hover:translate-x-2 transition-transform">
-                            <Link href={linkedin}>
+                            <Link href="/about">
                                 Learn more<FaArrowRight className="inline-block ml-2" />
                             </Link>
                         </div>
