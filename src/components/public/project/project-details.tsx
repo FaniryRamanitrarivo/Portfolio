@@ -54,6 +54,14 @@ export default function ProjectDetail({ project }: { project: Project }) {
             {project.overview}
           </p>
         </div>
+        {project.description && (
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold font-display text-neutral-900 mb-3 sm:mb-4">Description</h3>
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed whitespace-pre-line">
+              {project.description}
+            </p>
+          </div>
+        )}
         <div>
           <h3 className="text-lg sm:text-xl font-bold font-display text-neutral-900 mb-3 sm:mb-4">My Role</h3>
           <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">{project.role}</p>
