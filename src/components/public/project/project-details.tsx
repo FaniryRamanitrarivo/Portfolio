@@ -11,7 +11,9 @@ export default function ProjectDetail({ project }: { project: Project }) {
     <article className="p-6 sm:p-8 lg:p-12">
       <header className="mb-6 sm:mb-8">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="px-3 py-1 bg-accent-100 text-accent-700 text-xs font-semibold uppercase tracking-wider rounded-full">{project.category}</span>
+          {project.category && (
+            <span className="px-3 py-1 bg-accent-100 text-accent-700 text-xs font-semibold uppercase tracking-wider rounded-full">{project.category}</span>
+          )}
           {project.comingSoon && (
             <span className="px-3 py-1 bg-amber-500 text-white text-xs font-semibold uppercase tracking-wider rounded-full">Coming Soon</span>
           )}

@@ -190,8 +190,7 @@ export function ProjectForm({
 
                             <div>
                                 <Input
-                                    required
-                                    label="Category *"
+                                    label="Category"
                                     className={errors.category ? "border-red-300" : ""}
                                     placeholder="Category"
                                     {...register("category")}
@@ -223,8 +222,7 @@ export function ProjectForm({
 
                         <div>
                             <TextArea
-                                required
-                                label="Full Description *"
+                                label="Full Description"
                                 className={errors.description ? "border-red-300" : ""}
                                 placeholder="Detailed project overview"
                                 {...register("description")}
@@ -239,8 +237,7 @@ export function ProjectForm({
 
                         <div>
                             <Input
-                                required
-                                label="Image URL *"
+                                label="Image URL"
                                 className={errors.image ? "border-red-300" : ""}
                                 placeholder="https://example.com/image.jpg"
                                 {...register("image")}

@@ -64,7 +64,9 @@ function FeaturedCard({
                         </span>
                     )}
                 </div>
-                <div className="text-sm text-neutral-500 line-clamp-1">{project.category}</div>
+                {project.category && (
+                    <div className="text-sm text-neutral-500 line-clamp-1">{project.category}</div>
+                )}
             </div>
 
             <div className="flex items-center gap-1 flex-shrink-0">
