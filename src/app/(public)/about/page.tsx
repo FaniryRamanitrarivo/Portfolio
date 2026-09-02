@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { IoArrowBack } from "react-icons/io5";
+import { LuBriefcase, LuGraduationCap } from "react-icons/lu";
 import Logo from "@/src/components/ui/logo";
 import JourneyTimeline, { type TimelineItem } from "@/src/components/public/about/journey-timeline";
 import { educationServiceServer } from "@/src/server/services/education.service";
@@ -71,17 +72,23 @@ export default async function AboutPage() {
         </p>
 
         <section className="mt-12 sm:mt-16">
-          <h2 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 mb-8">
+          <span className="text-2xs font-semibold uppercase tracking-widest text-accent-600">
+            Career
+          </span>
+          <h2 className="mt-1 text-xl sm:text-2xl font-bold font-display text-neutral-900 mb-8">
             Professional Experience
           </h2>
-          <JourneyTimeline items={experienceItems} />
+          <JourneyTimeline items={experienceItems} icon={LuBriefcase} />
         </section>
 
         <section className="mt-12 sm:mt-16">
-          <h2 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 mb-8">
+          <span className="text-2xs font-semibold uppercase tracking-widest text-accent-600">
+            Academics
+          </span>
+          <h2 className="mt-1 text-xl sm:text-2xl font-bold font-display text-neutral-900 mb-8">
             Education
           </h2>
-          <JourneyTimeline items={educationItems} />
+          <JourneyTimeline items={educationItems} icon={LuGraduationCap} />
         </section>
       </div>
     </div>
