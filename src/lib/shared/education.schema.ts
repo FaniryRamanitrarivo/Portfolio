@@ -3,9 +3,9 @@ import { z } from "zod";
 /**
  * Single source of truth for Education field-level validation.
  * - The service layer / server actions use this directly.
- * - The admin form schema extends it, swapping the date fields for the
- *   "YYYY-MM" strings an <input type="month"> produces and `highlights`
- *   for the { value: string }[] shape react-hook-form's useFieldArray needs.
+ * - The admin form schema extends it, swapping `highlights` for the
+ *   { value: string }[] shape react-hook-form's useFieldArray needs
+ *   (dates stay real `Date` objects, picked via the MonthPicker component).
  */
 const nonEmptyString = z.string().trim().min(1);
 

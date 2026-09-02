@@ -14,12 +14,6 @@ function normalizeOptional(value?: string | null): string | null {
   return trimmed?.length ? trimmed : null;
 }
 
-// Transforme "YYYY-MM" (input type="month") → Date (1er jour du mois, en heure locale)
-function parseMonthInput(value: string): Date {
-  const [year, month] = value.split("-").map(Number);
-  return new Date(year, month - 1, 1);
-}
-
 // Normalise FormSchema → Experience (prêt à envoyer à l'API ou DB)
 export default function normalizeExperienceForm(
   data: ExperienceFormSchema
@@ -28,8 +22,8 @@ export default function normalizeExperienceForm(
     role: data.role,
     company: data.company,
     location: normalizeOptional(data.location),
-    startDate: parseMonthInput(data.startDate),
-    endDate: data.ongoing || !data.endDate ? null : parseMonthInput(data.endDate),
+    startDate: data.startDate,
+    endDate: data.ongoing ? null : (data.endDate ?? null),
     description: normalizeOptional(data.description),
     highlights: normalizeArray(data.highlights),
   };

@@ -11,18 +11,18 @@ const itemSchema = z.object({
 const itemArray = z.array(itemSchema);
 
 // Extends the shared Education schema, only overriding what the admin form
-// UI needs differently: dates as "YYYY-MM" strings for <input type="month">,
-// an `ongoing` checkbox to toggle endDate on/off, and `highlights` as
-// { value }[] for useFieldArray. `order` is not user-editable (drag-and-drop
-// in the list only).
+// UI needs differently: dates as real `Date` objects (picked via the
+// DatePicker component, never typed manually), an `ongoing` checkbox to
+// toggle endDate on/off, and `highlights` as { value }[] for useFieldArray.
+// `order` is not user-editable (drag-and-drop in the list only).
 export const educationFormSchema = educationSchema.omit({ order: true }).extend({
     location: z.string().optional(),
 
     description: z.string().optional(),
 
-    startDate: z.string().min(1, "Start date is required"),
+    startDate: z.date({ error: "Start date is required" }),
 
-    endDate: z.string().optional(),
+    endDate: z.date().nullable().optional(),
 
     ongoing: z.boolean().optional(),
 

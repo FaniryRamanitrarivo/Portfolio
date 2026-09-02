@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
+    Controller,
     useFieldArray,
     useForm,
     useWatch,
@@ -14,6 +15,7 @@ import * as z from "zod";
 
 import MultipleInput from "../ui/mutliple-input";
 import { Checkbox, Input, TextArea } from "../ui/input";
+import { MonthPicker } from "../ui/month-picker";
 
 import { experienceFormSchema } from "@/src/lib/back/validation/experience-form.schema";
 
@@ -37,8 +39,8 @@ export function ExperienceForm({
             role: "",
             company: "",
             location: "",
-            startDate: "",
-            endDate: "",
+            startDate: undefined,
+            endDate: undefined,
             ongoing: false,
             description: "",
 
@@ -139,12 +141,20 @@ export function ExperienceForm({
 
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div>
-                                <Input
-                                    required
-                                    type="month"
-                                    label="Start Date *"
-                                    className={errors.startDate ? "border-red-300" : ""}
-                                    {...register("startDate")}
+                                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                                    Start Date *
+                                </label>
+
+                                <Controller
+                                    control={control}
+                                    name="startDate"
+                                    render={({ field }) => (
+                                        <MonthPicker
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            hasError={!!errors.startDate}
+                                        />
+                                    )}
                                 />
 
                                 {errors.startDate && (
@@ -155,12 +165,21 @@ export function ExperienceForm({
                             </div>
 
                             <div>
-                                <Input
-                                    type="month"
-                                    label="End Date"
-                                    disabled={isOngoing}
-                                    className={errors.endDate ? "border-red-300" : ""}
-                                    {...register("endDate")}
+                                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                                    End Date
+                                </label>
+
+                                <Controller
+                                    control={control}
+                                    name="endDate"
+                                    render={({ field }) => (
+                                        <MonthPicker
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            disabled={isOngoing}
+                                            hasError={!!errors.endDate}
+                                        />
+                                    )}
                                 />
 
                                 {errors.endDate && (
