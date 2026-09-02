@@ -18,6 +18,11 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().optional().default(""),
   CONTACT_EMAIL: z.string().optional().default(""),
 
+  // Canonical production URL — used for metadataBase, sitemap.xml,
+  // robots.txt and canonical/OG links. Defaults to a placeholder so local
+  // dev and preview builds don't fail; must be overridden in production.
+  SITE_URL: z.string().url().optional().default("https://your-portfolio.vercel.app"),
+
   // Temporary local-dev switch to bypass NextAuth entirely (see
   // src/middleware.ts, src/app/admin/page.tsx, src/lib/auth-guard.ts).
   // Must be "false" (the default) anywhere auth actually matters.

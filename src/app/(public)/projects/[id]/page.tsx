@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ProjectDetail from "@/src/components/public/project/project-details";
 import { projectServiceServer } from "@/src/server/services/project.service";
-// import { projectServiceServer } from "@/src/server/services/project.service";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,23 +19,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!Number.isInteger(projectId) || projectId <= 0) {
     return {
       title: "Not Found",
+      robots: { index: false, follow: false },
     };
   }
 
   try {
     const project = await projectServiceServer.getProjectById(projectId);
     return {
-      title: `${project.title} - Portfolio`,
+      title: project.title,
       description: project.overview,
+      alternates: {
+        canonical: `/projects/${projectId}`,
+      },
       openGraph: {
+        type: "article",
+        url: `/projects/${projectId}`,
         title: project.title,
         description: project.overview,
-        images: project.image ? [project.image] : [],
+        images: project.image ? [project.image] : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: project.title,
+        description: project.overview,
+        images: project.image ? [project.image] : undefined,
       },
     };
   } catch {
     return {
       title: "Not Found",
+      robots: { index: false, follow: false },
     };
   }
 }

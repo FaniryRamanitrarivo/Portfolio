@@ -8,8 +8,18 @@ import { educationServiceServer } from "@/src/server/services/education.service"
 import { experienceServiceServer } from "@/src/server/services/experience.service";
 
 export const metadata: Metadata = {
-  title: "My Journey - Portfolio",
-  description: "Academic and professional background",
+  title: "My Journey",
+  description:
+    "A closer look at Faniry Ramanitrarivo's academic background and professional experience as a web data scraping and full-stack developer.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    url: "/about",
+    title: "My Journey — Faniry Ramanitrarivo",
+    description:
+      "A closer look at Faniry Ramanitrarivo's academic background and professional experience as a web data scraping and full-stack developer.",
+  },
 };
 
 export default async function AboutPage() {

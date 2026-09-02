@@ -45,7 +45,7 @@ export default function Hero() {
           {/* Left */}
           <div className="space-y-8 text-center lg:text-start">
 
-            <h3 className="text-3xl 3xl:text-base font-medium text-accent-600 tracking-wide" >Hi, I&apos;m Faniry Ramanitrarivo</h3>
+            <p className="text-3xl 3xl:text-base font-medium text-accent-600 tracking-wide">Hi, I&apos;m Faniry Ramanitrarivo</p>
             <h1 className="font-display font-bold leading-tight tracking-wide">
               <span className="block text-4xl lg:text-7xl
                 bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-600
