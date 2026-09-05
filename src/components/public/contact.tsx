@@ -1,8 +1,9 @@
 import SectionTitle from "../ui/section-title";
 import { MdOutlineEmail } from "react-icons/md";
-import { SocialLink } from "../ui/link";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { CustomLink, SocialLink } from "../ui/link";
+import { FaGithub, FaLinkedinIn, FaRegCalendarCheck } from "react-icons/fa6";
 import ContactForm from "./contact-form";
+import { env } from "@/src/lib/env";
 
 const socialsMediaLinks = {
     'email': 'faniryram0@gmail.com',
@@ -60,6 +61,28 @@ export default function Contact() {
                     </div>
                     {/* RIGHT */}
                     <div className="lg:col-span-3">
+                        {env.BOOKING_URL && (
+                            <>
+                                <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
+                                    <CustomLink
+                                        href={env.BOOKING_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        label="Book a call"
+                                        icon={<FaRegCalendarCheck />}
+                                        className="text-accent-700 hover:text-accent-800"
+                                    />
+                                    <p className="mt-2 text-sm text-neutral-500">
+                                        Just a conversation about your project — no commitment on your end.
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-4 my-6">
+                                    <div className="h-px flex-1 bg-neutral-200" />
+                                    <span className="text-sm font-medium text-neutral-400">OR</span>
+                                    <div className="h-px flex-1 bg-neutral-200" />
+                                </div>
+                            </>
+                        )}
                         <ContactForm />
                     </div>
                 </div>

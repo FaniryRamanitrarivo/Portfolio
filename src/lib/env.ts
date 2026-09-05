@@ -18,6 +18,10 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().optional().default(""),
   CONTACT_EMAIL: z.string().optional().default(""),
 
+  // Calendly/Cal.com scheduling link shown as a "book a call" CTA on the
+  // contact section. Optional — the CTA simply doesn't render if unset.
+  BOOKING_URL: z.string().optional().default(""),
+
   // Canonical production URL — used for metadataBase, sitemap.xml,
   // robots.txt and canonical/OG links. Defaults to a placeholder so local
   // dev and preview builds don't fail; must be overridden in production.
