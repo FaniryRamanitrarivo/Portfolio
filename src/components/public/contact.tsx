@@ -11,6 +11,33 @@ const socialsMediaLinks = {
     'github': 'https://github.com/FaniryRamanitrarivo',
 }
 
+function BookACallCta() {
+    if (!env.BOOKING_URL) return null;
+
+    return (
+        <>
+            <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
+                <CustomLink
+                    href={env.BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    label="Book a call"
+                    icon={<FaRegCalendarCheck />}
+                    className="text-accent-700 hover:text-accent-800"
+                />
+                <p className="mt-2 text-sm text-neutral-500">
+                    Just a conversation about your project — no commitment on your end.
+                </p>
+            </div>
+            <div className="flex items-center gap-4 my-6">
+                <div className="h-px flex-1 bg-neutral-200" />
+                <span className="text-sm font-medium text-neutral-400">OR</span>
+                <div className="h-px flex-1 bg-neutral-200" />
+            </div>
+        </>
+    );
+}
+
 export default function Contact() {
     return (
         <section id="contact" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-white via-accent-50/30 to-white relative overflow-hidden">
@@ -23,7 +50,7 @@ export default function Contact() {
                 </div>
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
                     {/* LEFT */}
-                    <div className="lg:col-span-2 space-y-6 sm:space-y-8">
+                    <div className="order-2 lg:order-1 lg:col-span-2 space-y-6 sm:space-y-8">
                         <h3 className="text-xl sm:text-2xl font-bold font-display text-neutral-900 mb-4">
                             Quick Response Guaranteed
                         </h3>
@@ -60,29 +87,8 @@ export default function Contact() {
                         </div>
                     </div>
                     {/* RIGHT */}
-                    <div className="lg:col-span-3">
-                        {env.BOOKING_URL && (
-                            <>
-                                <div className="p-4 bg-accent-50 rounded-xl border border-accent-100">
-                                    <CustomLink
-                                        href={env.BOOKING_URL}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        label="Book a call"
-                                        icon={<FaRegCalendarCheck />}
-                                        className="text-accent-700 hover:text-accent-800"
-                                    />
-                                    <p className="mt-2 text-sm text-neutral-500">
-                                        Just a conversation about your project — no commitment on your end.
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-4 my-6">
-                                    <div className="h-px flex-1 bg-neutral-200" />
-                                    <span className="text-sm font-medium text-neutral-400">OR</span>
-                                    <div className="h-px flex-1 bg-neutral-200" />
-                                </div>
-                            </>
-                        )}
+                    <div className="order-1 lg:order-2 lg:col-span-3">
+                        <BookACallCta />
                         <ContactForm />
                     </div>
                 </div>
