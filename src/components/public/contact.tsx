@@ -48,6 +48,9 @@ export default function Contact() {
                         Have a project in mind? Let&apos;s discuss how I can help bring your ideas to life
                     </p>
                 </div>
+                {/* order-* flips the stacking on mobile so "Book a call" (in RIGHT) appears
+                    before the socials/form (LEFT), while keeping the original left/right
+                    layout from the lg breakpoint up. */}
                 <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
                     {/* LEFT */}
                     <div className="order-2 lg:order-1 lg:col-span-2 space-y-6 sm:space-y-8">

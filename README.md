@@ -19,7 +19,7 @@ It showcases projects with detailed information and includes a **back-office API
 - **Framework:** Next.js 16 (App Router), React 19
 - **UI:** React, Tailwind CSS 4
 - **Design:** Clean, minimal, responsive (mobile-first)
-- **Features:** Server Components for performance, dynamic project listing
+- **Features:** Server Components for performance, dynamic project listing, optional "Book a call" CTA (Calendly/Cal.com) alongside the contact form
 
 ### Backend / API
 - **API:** Next.js API Routes (App Router) + Server Actions
@@ -62,6 +62,9 @@ Copy `.env.example` to `.env` and fill in real values (database, NextAuth, OAuth
 ```bash
 cp .env.example .env
 ```
+
+> `BOOKING_URL` (Calendly/Cal.com link) is optional — leave it empty to hide the
+> "Book a call" CTA on the contact section, or set it to show it alongside the form.
 
 ### Generate Prisma client and run migrations
 
