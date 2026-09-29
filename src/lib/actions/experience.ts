@@ -2,7 +2,7 @@
 
 import { experienceServiceServer } from "@/src/server/services/experience.service";
 import type { ExperienceDTO } from "@/src/types/experience";
-import { revalidateTag } from "next/cache";
+import { revalidatePublicPages } from "@/src/lib/back/revalidate";
 import { AppError } from "@/src/lib/back/errors";
 import { experienceSchema, experienceUpdateSchema } from "@/src/lib/shared/experience.schema";
 
@@ -19,7 +19,7 @@ export async function createExperience(
 
   try {
     const result = await experienceServiceServer.createExperience(parsed.data);
-    revalidateTag("experience", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -43,7 +43,7 @@ export async function updateExperience(
 
   try {
     const result = await experienceServiceServer.updateExperience(id, parsed.data);
-    revalidateTag("experience", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -59,7 +59,7 @@ export async function updateExperience(
 export async function deleteExperience(id: number) {
   try {
     await experienceServiceServer.deleteExperience(id);
-    revalidateTag("experience", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -88,7 +88,7 @@ export async function getExperienceById(id: number) {
 export async function reorderExperience(ids: number[]) {
   try {
     await experienceServiceServer.reorderExperience(ids);
-    revalidateTag("experience", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);

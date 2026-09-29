@@ -2,7 +2,7 @@
 
 import { serviceServiceServer } from "@/src/server/services/service.service";
 import type { ServiceDTO } from "@/src/types/services";
-import { revalidateTag } from "next/cache";
+import { revalidatePublicPages } from "@/src/lib/back/revalidate";
 import { AppError } from "@/src/lib/back/errors";
 import { serviceSchema, serviceUpdateSchema } from "@/src/lib/shared/service.schema";
 
@@ -19,7 +19,7 @@ export async function createService(
 
   try {
     const result = await serviceServiceServer.createService(parsed.data);
-    revalidateTag("services", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -43,7 +43,7 @@ export async function updateService(
 
   try {
     const result = await serviceServiceServer.updateService(id, parsed.data);
-    revalidateTag("services", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -59,7 +59,7 @@ export async function updateService(
 export async function deleteService(id: number) {
   try {
     await serviceServiceServer.deleteService(id);
-    revalidateTag("services", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -88,7 +88,7 @@ export async function getServiceById(id: number) {
 export async function reorderServices(ids: number[]) {
   try {
     await serviceServiceServer.reorderServices(ids);
-    revalidateTag("services", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);

@@ -2,7 +2,7 @@
 
 import { projectServiceServer } from "@/src/server/services/project.service";
 import type { ProjectDTO } from "@/src/types/projects";
-import { revalidateTag } from "next/cache";
+import { revalidatePublicPages } from "@/src/lib/back/revalidate";
 import { AppError } from "@/src/lib/back/errors";
 import { projectSchema, projectUpdateSchema } from "@/src/lib/shared/project.schema";
 
@@ -24,7 +24,7 @@ export async function createProject(
   try {
     const result = await projectServiceServer.createProject(parsed.data);
     // Invalide le cache ISR pour les projets
-    revalidateTag("projects", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -49,7 +49,7 @@ export async function updateProject(
   try {
     const result = await projectServiceServer.updateProject(id, parsed.data);
     // Invalide le cache ISR
-    revalidateTag("projects", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -66,7 +66,7 @@ export async function deleteProject(id: number) {
   try {
     await projectServiceServer.deleteProject(id);
     // Invalide le cache ISR
-    revalidateTag("projects", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -97,7 +97,7 @@ export async function getProjectById(id: number) {
 export async function reorderFeaturedProjects(ids: number[]) {
   try {
     await projectServiceServer.reorderFeaturedProjects(ids);
-    revalidateTag("projects", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -112,7 +112,7 @@ export async function reorderFeaturedProjects(ids: number[]) {
 export async function setProjectFeatured(id: number, featured: boolean) {
   try {
     const result = await projectServiceServer.setProjectFeatured(id, featured);
-    revalidateTag("projects", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {

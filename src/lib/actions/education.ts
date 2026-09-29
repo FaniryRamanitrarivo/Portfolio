@@ -2,7 +2,7 @@
 
 import { educationServiceServer } from "@/src/server/services/education.service";
 import type { EducationDTO } from "@/src/types/education";
-import { revalidateTag } from "next/cache";
+import { revalidatePublicPages } from "@/src/lib/back/revalidate";
 import { AppError } from "@/src/lib/back/errors";
 import { educationSchema, educationUpdateSchema } from "@/src/lib/shared/education.schema";
 
@@ -19,7 +19,7 @@ export async function createEducation(
 
   try {
     const result = await educationServiceServer.createEducation(parsed.data);
-    revalidateTag("education", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -43,7 +43,7 @@ export async function updateEducation(
 
   try {
     const result = await educationServiceServer.updateEducation(id, parsed.data);
-    revalidateTag("education", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -59,7 +59,7 @@ export async function updateEducation(
 export async function deleteEducation(id: number) {
   try {
     await educationServiceServer.deleteEducation(id);
-    revalidateTag("education", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -88,7 +88,7 @@ export async function getEducationById(id: number) {
 export async function reorderEducation(ids: number[]) {
   try {
     await educationServiceServer.reorderEducation(ids);
-    revalidateTag("education", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);

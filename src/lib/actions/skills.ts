@@ -2,7 +2,7 @@
 
 import { skillServiceServer } from "@/src/server/services/skill.service";
 import type { SkillDTO } from "@/src/types/skills";
-import { revalidateTag } from "next/cache";
+import { revalidatePublicPages } from "@/src/lib/back/revalidate";
 import { AppError } from "@/src/lib/back/errors";
 import { skillSchema, skillUpdateSchema } from "@/src/lib/shared/skill.schema";
 
@@ -19,7 +19,7 @@ export async function createSkill(
 
   try {
     const result = await skillServiceServer.createSkill(parsed.data);
-    revalidateTag("skills", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -43,7 +43,7 @@ export async function updateSkill(
 
   try {
     const result = await skillServiceServer.updateSkill(id, parsed.data);
-    revalidateTag("skills", "max");
+    revalidatePublicPages();
     return result;
   } catch (error) {
     if (error instanceof AppError) {
@@ -59,7 +59,7 @@ export async function updateSkill(
 export async function deleteSkill(id: number) {
   try {
     await skillServiceServer.deleteSkill(id);
-    revalidateTag("skills", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
@@ -88,7 +88,7 @@ export async function getSkillById(id: number) {
 export async function reorderSkills(ids: number[]) {
   try {
     await skillServiceServer.reorderSkills(ids);
-    revalidateTag("skills", "max");
+    revalidatePublicPages();
   } catch (error) {
     if (error instanceof AppError) {
       throw new Error(error.message);
